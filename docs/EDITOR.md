@@ -7,9 +7,9 @@ Cada «Guardar» crea un commit en GitHub y Vercel vuelve a publicar la web en u
 ## Cómo lo usa Víctor
 
 1. Entra en la web y pulsa **«Acceso editor»** (al final de la página), o abre directamente `/#acceso`.
-2. Escribe su contraseña. Aparece una barra negra abajo: **Modo edición**. En este modo se ven todas las entradas
-   y páginas seguidas (portada, entradas, «Acerca de», «Contacto»), cada una en un recuadro; con **«Ver»** la web
-   vuelve a verse como un blog normal.
+2. Escribe su contraseña. Aparece una barra negra abajo: **Modo edición**. La web se navega igual que siempre
+   (menú, listas, búsqueda): abre la entrada o página que quiera y la edita ahí mismo, en un recuadro. Puede cambiar
+   varias páginas y pulsar «Guardar» una sola vez. **«Ver»** quita los recuadros para ver cómo queda.
 3. Hace clic en cualquier texto y escribe. La barra pequeña tiene las mismas herramientas que en el sitio anterior:
    negrita, cursiva, subrayado, tamaño, color, alineación, listas, enlaces, quitar formato, arrastrar, mover,
    cortar/pegar, duplicar, eliminar y añadir.
@@ -19,8 +19,8 @@ Cada «Guardar» crea un commit en GitHub y Vercel vuelve a publicar la web en u
    - Fecha `AAAA-MM-DD` (o `DD/MM/AAAA`): ordena el blog, la más reciente primero.
    - Temas separados por comas: son las etiquetas. Un tema nuevo aparece solo.
    - `Borrador` al final muestra la etiqueta «Borrador»; se borra para quitarla.
-5. **Entrada nueva**: «＋ Entrada nueva aquí» (entre entradas), el panel «Añadir» o «＋ Añadir» en la barra.
-   Sale con textos provisionales en los dos idiomas y la fecha de hoy. **«🗑 Eliminar esta entrada»** al final de
+5. **Entrada nueva**: «＋ Entrada nueva aquí» (debajo de la portada o de una entrada), el panel «Añadir» o
+   «＋ Añadir» en la barra. Se abre sola, con textos provisionales en los dos idiomas y la fecha de hoy. **«🗑 Eliminar esta entrada»** al final de
    cada una la quita (las páginas fijas —portada, Acerca de, Contacto— no se pueden eliminar).
 6. Fotos: «Foto» en el menú «Añadir» y luego **«Cambiar foto»** (se reducen solas a 1800 px). PDF: en un enlace o
    botón, «Adónde lleva → Un PDF» sube el archivo (máximo 3 MB) a `documentos/`.

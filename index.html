@@ -195,9 +195,9 @@ footer nav a{margin-right:16px;color:var(--text);text-decoration:none;font-weigh
 footer nav a:hover{color:var(--red)}
 .editor-link{display:block;margin-top:18px;font-size:12px;color:var(--text-muted)}
 
-/* Modo edición: se ven todas las entradas seguidas, con su ficha */
-html.sm-editing #view{display:none}
-html.sm-editing #posts > section{display:block!important;border:1px dashed var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 8px}
+/* Modo edición: se navega igual que en la web; la página abierta se edita en su sitio, con su ficha */
+html.sm-editing #posts > section{border:1px dashed var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 8px}
+html.sm-editing #view{margin-top:32px}
 html.sm-editing .ficha{display:block;font:13px/1.5 var(--sans);background:#fef3c7;color:#111;border-radius:8px;padding:8px 10px}
 html.sm-editing[data-lang="es"] .ficha::before{content:"Ficha de la entrada — sección | fecha (AAAA-MM-DD) | temas separados por comas | Borrador (opcional):";display:block;font-weight:700;margin-bottom:2px}
 html.sm-editing[data-lang="en"] .ficha::before{content:"Post details — section | date (YYYY-MM-DD) | topics separated by commas | Draft (optional):";display:block;font-weight:700;margin-bottom:2px}
@@ -628,8 +628,9 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
   }
 
   /* ---------- Vista de una entrada: añadidos que no se guardan (clase sm-ui) ---------- */
-  function decoratePost(p, posts) {
+  function decoratePost(p, posts, noDecor) {
     var c = $(':scope > .container', p.el);
+    if (noDecor) return postFoot(p, posts);
     var h2 = $('h2', c), dek = $('.dek', c);
     var kick = document.createElement('a');
     kick.className = 'cat sm-ui'; kick.href = '#/categoria/' + p.category; kick.innerHTML = T(CATEGORIES[p.category]);
@@ -638,6 +639,9 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
     by.className = 'byline sm-ui';
     by.innerHTML = '<span class="avatar" aria-hidden="true">' + AUTHOR.initials + '</span><div class="who"><strong>' + AUTHOR.name + '</strong><span>' + fmtDate(p.date) + ' · ' + p.mins + ' min ' + T({ es: 'de lectura', en: 'read' }) + '</span></div><span style="margin-left:auto">' + draftTag(p) + '</span>';
     (dek || h2 || kick).after(by);
+    return postFoot(p, posts);
+  }
+  function postFoot(p, posts) {
 
     var i = posts.indexOf(p), newer = posts[i - 1], older = posts[i + 1];
     var related = posts.filter(function (q) { return q !== p && q.topics.some(function (t) { return p.topics.indexOf(t) >= 0; }); }).slice(0, 3);
@@ -661,14 +665,18 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
   }
 
   /* ---------- Rutas ---------- */
+  var shown = [];
   function show(ids) {
-    routeStyle.textContent = '#posts > section{display:none}' + ids.map(function (id) { return '#posts > section#' + CSS.escape(id) + '{display:block}'; }).join('');
+    routeStyle.textContent = '#posts > section, #posts > .sm-add-section{display:none}' + ids.map(function (id) {
+      var sel = '#posts > section#' + CSS.escape(id);
+      return sel + '{display:block}' + sel + ' + .sm-add-section{display:block}';
+    }).join('');
+    shown = ids.slice();
   }
   function route() {
     $$('.sm-ui', postsEl).forEach(function (n) { if (!n.closest('.sm-chrome') && (n.classList.contains('byline') || n.classList.contains('cat'))) n.remove(); });
     var posts = readPosts();
     renderSidebar(posts);
-    if (editing()) { routeStyle.textContent = ''; return; }
     var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
     var nav = 'home', html = '';
     document.title = lang() === 'es' ? 'Deporte y Políticas Públicas' : 'Sport & Public Policy';
@@ -676,7 +684,7 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
     if (target && target.parentElement === postsEl) {
       show([hash]);
       var p = posts.filter(function (x) { return x.id === hash; })[0];
-      if (p) { html = decoratePost(p, posts); nav = p.category; }
+      if (p) { html = decoratePost(p, posts, editing()); nav = p.category; }
       else nav = hash;
     } else if (hash.charAt(0) === '/') {
       var parts = hash.slice(1).split('/'), r = parts[0], arg = parts.slice(1).join('/');
@@ -739,12 +747,25 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
   window.addEventListener('hashchange', function () {
     if (location.hash === '#acceso') return;
     route();
-    if (!editing()) window.scrollTo({ top: location.hash && location.hash !== '#' ? $('nav.main').offsetTop : 0 });
+    window.scrollTo({ top: location.hash && location.hash !== '#' ? $('nav.main').offsetTop : 0 });
   });
   // Al entrar o salir del modo edición se vuelve a pintar la página.
   var wasEditing = false;
   new MutationObserver(function () { if (editing() !== wasEditing) { wasEditing = editing(); route(); } }).observe(root, { attributes: true, attributeFilter: ['class'] });
   route();
+
+  // En modo edición: una entrada nueva (o duplicada) se abre sola; si se elimina la
+  // entrada abierta, se vuelve a la portada.
+  function sectionIds() { return $$(':scope > section[id]', postsEl).map(function (s) { return s.id; }); }
+  var knownIds = sectionIds();
+  new MutationObserver(function () {
+    var ids = sectionIds();
+    var added = ids.filter(function (id) { return knownIds.indexOf(id) < 0; });
+    knownIds = ids;
+    if (!editing()) return;
+    if (added.length === 1) { location.hash = '#' + added[0]; return; }
+    if (shown.length && shown.every(function (id) { return ids.indexOf(id) < 0; })) location.hash = '';
+  }).observe(postsEl, { childList: true });
 
   /* ---------- Editor del sitio (solo se carga para el editor o en #acceso) ---------- */
   function loadEditor() {
