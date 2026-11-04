@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deporte y Políticas Públicas</title>
 <meta name="description" content="Análisis claros, breves y accesibles sobre deporte y políticas públicas, con ejemplos concretos. Sport and public policy, explained.">
+<!--
+  Sitio estático de una sola página. El contenido (entradas, «Acerca de», «Contacto» y pie)
+  está entre los comentarios «editable:main» y «editable:footer»: el editor del sitio
+  (admin/editor.js, ver docs/EDITOR.md) los modifica y cada «Guardar» es un commit en GitHub.
+  No quitar ni duplicar esos comentarios.
+-->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23d92b23'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='700' text-anchor='middle' fill='white'%3ESP%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +22,7 @@
   --red:#d92b23; --red-strong:#b5201a; --red-soft:#fdeceb; --link:#b5201a;
   --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
   --sans:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --maxw:1120px; --radius:10px;
+  --maxw:1120px; --radius:10px; --shadow:0 1px 2px rgba(0,0,0,.04);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
@@ -48,7 +54,7 @@ button{font:inherit;color:inherit}
 .skip:focus{left:8px}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 
-/* Header */
+/* Cabecera */
 .topbar{border-bottom:1px solid var(--line);font-size:13px;color:var(--text-muted)}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;height:40px}
 .tools{display:flex;gap:6px;align-items:center}
@@ -56,8 +62,7 @@ button{font:inherit;color:inherit}
 .pill[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
 .pill:hover{border-color:var(--red)}
 .masthead{padding:40px 0 28px;text-align:center}
-.brand{display:inline-flex;align-items:center;gap:14px;text-decoration:none;color:var(--text)}
-.badge{width:46px;height:46px;border-radius:10px;background:var(--red);color:#fff;display:grid;place-items:center;font:700 20px var(--serif)}
+.brand{text-decoration:none;color:var(--text)}
 .brand h1{margin:0;font:700 clamp(28px,4.4vw,44px)/1.1 var(--serif);letter-spacing:-.01em}
 .tagline{margin:12px auto 0;max-width:620px;color:var(--text-muted);font:italic 18px/1.5 var(--serif)}
 nav.main{border-top:1px solid var(--line);border-bottom:3px solid var(--text);position:sticky;top:0;background:var(--bg);z-index:20}
@@ -65,31 +70,31 @@ nav.main ul{list-style:none;margin:0;padding:0;display:flex;justify-content:cent
 nav.main a{display:block;padding:13px 16px;text-decoration:none;color:var(--text);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;border-bottom:3px solid transparent;margin-bottom:-3px}
 nav.main a:hover,nav.main a.active{color:var(--red);border-bottom-color:var(--red)}
 
-/* Layout */
+/* Estructura */
 main{padding:40px 0 64px}
 .grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px}
 @media (max-width:900px){.grid{grid-template-columns:1fr;gap:40px}}
+#posts > section > .container{max-width:none}
 
-/* Intro */
-.intro{background:var(--bg-soft);border-left:4px solid var(--red);padding:22px 26px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:40px}
-.intro p{margin:0;font:19px/1.6 var(--serif)}
-.intro p+p{margin-top:10px;font:15px/1.6 var(--sans);color:var(--text-muted)}
+/* Portada */
+.intro-sec .container{background:var(--bg-soft);border-left:4px solid var(--red);padding:22px 26px;border-radius:0 var(--radius) var(--radius) 0;margin-bottom:40px}
+.intro-sec p{margin:0;font:15px/1.6 var(--sans);color:var(--text-muted)}
+.intro-sec p.lead{font:19px/1.6 var(--serif);color:var(--text);margin-bottom:10px}
 .section-title{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin:0 0 18px;display:flex;align-items:center;gap:12px}
 .section-title::after{content:"";flex:1;height:1px;background:var(--line)}
 
-/* Post cards */
+/* Tarjetas */
 .featured{padding-bottom:36px;margin-bottom:36px;border-bottom:1px solid var(--line)}
 .featured h2{font:700 clamp(26px,3.4vw,36px)/1.2 var(--serif);margin:8px 0 12px;letter-spacing:-.01em}
 .featured .excerpt{font:19px/1.6 var(--serif)}
 .card{padding:26px 0;border-bottom:1px solid var(--line)}
 .card:first-of-type{padding-top:0}
 .card h3{font:700 23px/1.3 var(--serif);margin:6px 0 8px}
-.card h2 a,.card h3 a,.featured h2 a{color:var(--text);text-decoration:none}
+.card h3 a,.featured h2 a{color:var(--text);text-decoration:none}
 .card h3 a:hover,.featured h2 a:hover{color:var(--red)}
 .excerpt{margin:0 0 12px;color:var(--text);font:17px/1.6 var(--serif)}
 .cat{display:inline-block;font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--red);text-decoration:none}
 .meta{font-size:13px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
-.meta a{color:var(--text-muted)}
 .draft{font:700 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;background:var(--red-soft);color:var(--red-strong);padding:2px 7px;border-radius:4px}
 .more{font-weight:600;font-size:14px;text-decoration:none}
 .empty{color:var(--text-muted);font-style:italic}
@@ -97,33 +102,49 @@ main{padding:40px 0 64px}
 .listhead h2{font:700 32px/1.2 var(--serif);margin:4px 0 6px}
 .listhead p{margin:0;color:var(--text-muted)}
 
-/* Article */
-article.post header h1{font:700 clamp(30px,4.2vw,42px)/1.18 var(--serif);margin:10px 0 14px;letter-spacing:-.015em}
-article.post .dek{font:italic 20px/1.5 var(--serif);color:var(--text-muted);margin:0 0 18px}
-.byline{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:28px}
+/* Entradas y páginas (contenido editable) */
+.post-sec .container, .page-sec .container{font:19px/1.72 var(--serif)}
+.post-title, .page-title{font:700 clamp(30px,4.2vw,42px)/1.18 var(--serif);margin:10px 0 14px;letter-spacing:-.015em}
+.page-title{margin-top:0}
+.dek{font:italic 20px/1.5 var(--serif);color:var(--text-muted);margin:0 0 18px}
+.byline{display:flex;align-items:center;gap:12px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:28px;font-family:var(--sans)}
 .avatar{width:40px;height:40px;border-radius:50%;background:var(--text);color:var(--bg);display:grid;place-items:center;font:700 14px var(--sans);flex:none}
 .byline .who{font-size:14px;line-height:1.4}
 .byline .who strong{display:block}
 .byline .who span{color:var(--text-muted)}
-.body{font:19px/1.72 var(--serif)}
-.body p{margin:0 0 1.15em}
-.body h2{font:700 24px/1.3 var(--serif);margin:1.8em 0 .6em}
-.body blockquote{margin:1.4em 0;padding:4px 0 4px 22px;border-left:3px solid var(--red);font-style:italic;color:var(--text-muted)}
-.body ul,.body ol{padding-left:1.3em;margin:0 0 1.15em}
-.body li{margin-bottom:.4em}
-.biblio{font:italic 16px/1.5 var(--serif);color:var(--text-muted);background:var(--bg-soft);padding:14px 18px;border-radius:var(--radius);margin-bottom:24px}
-.keybox{background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:4px 22px;margin:0 0 30px;font-family:var(--sans)}
-.keybox h2{font:700 12px var(--sans)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:18px 0 6px!important}
-.keybox dl{margin:0 0 14px;display:grid;grid-template-columns:130px 1fr;gap:0}
-.keybox dt,.keybox dd{padding:11px 0;border-top:1px solid var(--line);font-size:15px;line-height:1.55}
-.keybox dt{font-weight:700}
-.keybox dd{margin:0}
-.keybox dl>:nth-child(1),.keybox dl>:nth-child(2){border-top:0}
-@media (max-width:560px){.keybox dl{grid-template-columns:1fr}.keybox dd{border-top:0;padding-top:0}}
-.refs{font-size:14px;line-height:1.55;color:var(--text-muted);border-top:1px solid var(--line);padding-top:18px;margin-top:30px}
-.refs h3{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text);margin:0 0 10px}
-.refs ol{margin:0;padding-left:1.2em}
-.postfoot{margin-top:30px;font-size:14px;color:var(--text-muted)}
+.post-sec p, .page-sec p{margin:0 0 1.15em}
+.post-sec h3, .page-sec h3{font:700 24px/1.3 var(--serif);margin:1.8em 0 .6em}
+.post-sec h4, .page-sec h4{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:2.2em 0 10px;padding-top:18px;border-top:1px solid var(--line)}
+.post-sec ul, .post-sec ol, .page-sec ul, .page-sec ol{padding-left:1.3em;margin:0 0 1.15em}
+.post-sec li, .page-sec li{margin-bottom:.4em}
+.quote{margin:1.4em 0!important;padding:4px 0 4px 22px;border-left:3px solid var(--red);font-style:italic;color:var(--text-muted)}
+.biblio{font:italic 16px/1.5 var(--serif)!important;color:var(--text-muted);background:var(--bg-soft);padding:14px 18px;border-radius:var(--radius)}
+.keys-title{font:700 12px var(--sans)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin:0!important;background:var(--bg-soft);border:1px solid var(--line);border-bottom:0;border-radius:var(--radius) var(--radius) 0 0;padding:16px 22px 6px}
+.keys{list-style:none;padding:4px 22px 10px!important;margin:0 0 30px!important;background:var(--bg-soft);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--radius) var(--radius);font:15px/1.55 var(--sans)}
+.keys li{padding:11px 0;margin:0!important;border-top:1px solid var(--line)}
+.keys li:first-child{border-top:0}
+.keys strong{display:inline-block;min-width:120px;margin-right:6px}
+.refs{font:14px/1.55 var(--sans);color:var(--text-muted)}
+.author-bio{display:none}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 1.15em}
+.btn{display:inline-block;background:var(--red);color:#fff;border-radius:8px;padding:10px 16px;font:600 14px var(--sans);text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:var(--red-strong);color:#fff}
+.ficha{display:none}
+/* Formatos del editor (tamaño, color, alineación, cuadro de texto, fotos) */
+.textbox{background:var(--bg-elev);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;margin:0 0 1em;box-shadow:var(--shadow)}
+.textbox > div > :last-child{margin-bottom:0}
+.txt-sm{font-size:.85em}.txt-lg{font-size:1.25em}.txt-xl{font-size:1.6em;line-height:1.25}
+.txt-red{color:var(--red)}.txt-muted{color:var(--text-muted)}
+.txt-center{text-align:center}.txt-right{text-align:right}
+.photo{margin:0 0 1em;position:relative;border-radius:var(--radius);overflow:hidden;background:var(--bg-soft);border:1px solid var(--line);aspect-ratio:var(--ratio,16 / 9)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .25s}
+.photo.has-img img{opacity:1}
+.photo.no-img{display:none}
+.photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font:13px/1.35 var(--sans);opacity:0;transition:opacity .25s}
+.photo.has-img figcaption{opacity:1}
+
+/* Pie de cada entrada (generado) */
+.postfoot{margin-top:6px;font-size:14px;color:var(--text-muted)}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:13px;text-decoration:none;color:var(--text)}
 .tag:hover{border-color:var(--red);color:var(--red)}
@@ -145,7 +166,7 @@ article.post .dek{font:italic 20px/1.5 var(--serif);color:var(--text-muted);marg
 .related li a{display:block;height:100%;border-top:3px solid var(--red);background:var(--bg-soft);padding:12px 14px;text-decoration:none;color:var(--text);font:600 15px/1.35 var(--serif);border-radius:0 0 8px 8px}
 .related li a:hover{color:var(--red)}
 
-/* Sidebar */
+/* Barra lateral */
 aside .widget{margin-bottom:34px}
 aside h4{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--text)}
 .search{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg-elev)}
@@ -164,22 +185,24 @@ aside h4{font:700 12px var(--sans);letter-spacing:.14em;text-transform:uppercase
 .recent a:hover{color:var(--red)}
 .recent small{display:block;color:var(--text-muted);font-size:12px;margin-top:2px}
 .tagcloud{display:flex;flex-wrap:wrap;gap:6px}
-.btn{display:inline-block;background:var(--red);color:#fff;border-radius:8px;padding:10px 16px;font-weight:600;font-size:14px;text-decoration:none;border:0;cursor:pointer}
-.btn:hover{background:var(--red-strong);color:#fff}
-
-/* Static pages */
-.page h1{font:700 38px/1.2 var(--serif);margin:0 0 18px}
-.page .body h2:first-child{margin-top:0}
-.formatgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:8px 0 28px;font-family:var(--sans)}
-.formatgrid div{border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-.formatgrid b{display:block;color:var(--red);font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
-.formatgrid p{margin:0!important;font-size:15px;line-height:1.5}
 
 footer{border-top:3px solid var(--text);background:var(--bg-soft);padding:36px 0 30px;font-size:14px;color:var(--text-muted)}
 footer .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer .cols > div{min-width:0}
+footer p{margin:6px 0 0}
+footer .site-name{color:var(--text);font-weight:700}
 footer nav a{margin-right:16px;color:var(--text);text-decoration:none;font-weight:600}
 footer nav a:hover{color:var(--red)}
-footer p{margin:6px 0 0}
+.editor-link{display:block;margin-top:18px;font-size:12px;color:var(--text-muted)}
+
+/* Modo edición: se ven todas las entradas seguidas, con su ficha */
+html.sm-editing #view{display:none}
+html.sm-editing #posts > section{display:block!important;border:1px dashed var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 8px}
+html.sm-editing .ficha{display:block;font:13px/1.5 var(--sans);background:#fef3c7;color:#111;border-radius:8px;padding:8px 10px}
+html.sm-editing[data-lang="es"] .ficha::before{content:"Ficha de la entrada — sección | fecha (AAAA-MM-DD) | temas separados por comas | Borrador (opcional):";display:block;font-weight:700;margin-bottom:2px}
+html.sm-editing[data-lang="en"] .ficha::before{content:"Post details — section | date (YYYY-MM-DD) | topics separated by commas | Draft (optional):";display:block;font-weight:700;margin-bottom:2px}
+html.sm-editing .author-bio{display:block;font-size:15px;color:var(--text-muted)}
+html.sm-editing .intro-sec .container{margin-bottom:0}
 
 @media (max-width:640px){
   .wrap{padding:0 16px}
@@ -187,18 +210,20 @@ footer p{margin:6px 0 0}
   .tagline{font-size:16px}
   nav.main ul{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   nav.main a{padding:12px 11px;font-size:13px;white-space:nowrap}
-  .body{font-size:18px}
+  .post-sec .container, .page-sec .container{font-size:18px}
+  .keys strong{display:block}
   .topbar .wrap{height:auto;padding-top:8px;padding-bottom:8px}
   .topbar .note{display:none}
 }
 </style>
+<style id="routeStyle"></style>
 </head>
 <body>
 <a class="skip" href="#content"><span class="es">Saltar al contenido</span><span class="en">Skip to content</span></a>
 
 <div class="topbar">
   <div class="wrap">
-    <span class="note"><span class="es">Un espacio de análisis de la Universidad Europea · Dr. Víctor Jiménez Díaz-Benito</span><span class="en">An analysis space by Dr. Víctor Jiménez Díaz-Benito · Universidad Europea</span></span>
+    <span class="note"><span class="es">Un espacio de análisis del Dr. Víctor Jiménez Díaz-Benito · Universidad Europea</span><span class="en">An analysis space by Dr. Víctor Jiménez Díaz-Benito · Universidad Europea</span></span>
     <div class="tools">
       <button class="pill" data-setlang="es" aria-pressed="true">ES</button>
       <button class="pill" data-setlang="en" aria-pressed="false">EN</button>
@@ -208,8 +233,7 @@ footer p{margin:6px 0 0}
 </div>
 
 <header class="masthead wrap">
-  <a class="brand" href="#/">
-    <span class="badge" aria-hidden="true">SP</span>
+  <a class="brand" href="#">
     <h1><span class="es">Deporte y Políticas Públicas</span><span class="en">Sport &amp; Public Policy</span></h1>
   </a>
   <p class="tagline"><span class="es">Análisis claros, breves y accesibles sobre cómo los poderes públicos regulan, financian y promueven el deporte — explicados con casos concretos.</span><span class="en">Clear, concise and accessible analysis of how governments regulate, fund and promote sport — explained through concrete cases.</span></p>
@@ -218,416 +242,519 @@ footer p{margin:6px 0 0}
 <nav class="main" aria-label="Principal / Main">
   <div class="wrap">
     <ul id="nav">
-      <li><a href="#/" data-nav="home"><span class="es">Inicio</span><span class="en">Home</span></a></li>
+      <li><a href="#" data-nav="home"><span class="es">Inicio</span><span class="en">Home</span></a></li>
       <li><a href="#/categoria/analisis" data-nav="analisis"><span class="es">Análisis</span><span class="en">Analysis</span></a></li>
       <li><a href="#/categoria/casos" data-nav="casos"><span class="es">Casos</span><span class="en">Cases</span></a></li>
       <li><a href="#/categoria/lecturas" data-nav="lecturas"><span class="es">Lecturas</span><span class="en">Literature</span></a></li>
       <li><a href="#/temas" data-nav="temas"><span class="es">Temas</span><span class="en">Topics</span></a></li>
-      <li><a href="#/acerca" data-nav="acerca"><span class="es">Acerca de</span><span class="en">About</span></a></li>
-      <li><a href="#/contacto" data-nav="contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
+      <li><a href="#acerca" data-nav="acerca"><span class="es">Acerca de</span><span class="en">About</span></a></li>
+      <li><a href="#contacto" data-nav="contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
     </ul>
   </div>
 </nav>
 
 <main id="content" class="wrap" tabindex="-1">
   <div class="grid">
-    <div id="view" aria-live="polite"></div>
+    <div>
+<div id="posts" data-region="main"><!--editable:main-->
+<section id="inicio" class="page-sec intro-sec"><div class="container">
+<p class="lead es">El deporte es también política pública: leyes, sentencias, subvenciones, candidaturas y planes de salud deciden cómo se practica, se financia y se gobierna.</p>
+<p class="lead en">Sport is also public policy: laws, court rulings, subsidies, bids and health plans shape how it is played, funded and governed.</p>
+<p class="es">Cada entrada parte de un ejemplo concreto y lo resume en cuatro claves: <strong>cuestión, ejemplo, debate e implicaciones</strong>.</p>
+<p class="en">Each post starts from a concrete example and sums it up in four keys: <strong>issue, example, debate and implications</strong>.</p>
+</div></section>
+
+<section id="superliga-tjue" class="post-sec"><div class="container">
+<p class="ficha">Casos | 2026-10-28 | Regulación y derecho, Gobernanza, Unión Europea | Borrador</p>
+<h2 class="post-title"><span class="es">La Superliga ante el TJUE: ¿quién puede organizar una competición?</span><span class="en">The Super League at the CJEU: who gets to organise a competition?</span></h2>
+<p class="dek"><span class="es">Por qué la sentencia de diciembre de 2023 no fue una victoria de la Superliga, sino un aviso a las federaciones.</span><span class="en">Why the December 2023 ruling was not a win for the Super League, but a warning to governing bodies.</span></p>
+<h3 class="keys-title"><span class="es">En cuatro claves</span><span class="en">In four keys</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Pueden FIFA y UEFA exigir autorización previa para crear competiciones rivales y sancionar a quien participe en ellas?</span><span class="en"><strong>Issue</strong> May FIFA and UEFA require prior approval for rival competitions and sanction those who take part?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> Asunto C-333/21, European Superleague Company c. FIFA y UEFA (Gran Sala, 21-12-2023), planteado por un juzgado de lo mercantil de Madrid.</span><span class="en"><strong>Example</strong> Case C-333/21, European Superleague Company v FIFA and UEFA (Grand Chamber, 21 Dec 2023), referred by a Madrid commercial court.</span></li>
+<li><span class="es"><strong>Debate</strong> Autonomía del deporte y «modelo europeo» frente a la libre competencia del mercado interior.</span><span class="en"><strong>Debate</strong> Sporting autonomy and the 'European model' versus competition law in the single market.</span></li>
+<li><span class="es"><strong>Implicaciones</strong> Las federaciones pueden regular, pero con criterios transparentes, objetivos, no discriminatorios y proporcionados.</span><span class="en"><strong>Implications</strong> Governing bodies may regulate, but only under transparent, objective, non-discriminatory and proportionate criteria.</span></li>
+</ul>
+<p class="es">En abril de 2021, doce grandes clubes europeos anunciaron una Superliga cerrada. El proyecto se desmoronó en 48 horas, pero dejó una pregunta jurídica que acabó en Luxemburgo: ¿puede un organismo que <em>organiza</em> competiciones decidir también quién más puede organizarlas?</p>
+<p class="en">In April 2021, twelve major European clubs announced a closed Super League. The project collapsed within 48 hours, but it left a legal question that ended up in Luxembourg: can a body that <em>organises</em> competitions also decide who else may organise them?</p>
+<h3><span class="es">Qué dijo el Tribunal</span><span class="en">What the Court said</span></h3>
+<p class="es">El Tribunal de Justicia de la UE concluyó que las normas de FIFA y UEFA sobre autorización previa de competiciones, junto con las sanciones a clubes y jugadores, eran contrarias al Derecho de la competencia (arts. 101 y 102 TFUE) <strong>porque no estaban sujetas a criterios</strong> transparentes, objetivos, no discriminatorios y proporcionados. Es decir: el problema no era que existiera un control, sino que fuera discrecional.</p>
+<p class="en">The Court of Justice held that FIFA and UEFA rules requiring prior approval of competitions, together with sanctions on clubs and players, breached EU competition law (Arts 101 and 102 TFEU) <strong>because they were not subject to criteria</strong> that were transparent, objective, non-discriminatory and proportionate. The problem was not oversight as such, but discretionary oversight.</p>
+<p class="quote es">El deporte tiene especificidades, pero no queda fuera del mercado interior cuando es una actividad económica.</p>
+<p class="quote en">Sport has specific features, but it does not sit outside the single market when it is an economic activity.</p>
+<h3><span class="es">Lo que no dijo</span><span class="en">What it did not say</span></h3>
+<p class="es">La sentencia no ordenó aceptar la Superliga ni valoró si ese proyecto concreto era compatible con el Derecho de la UE. El mismo día, el Tribunal resolvió otros dos asuntos relevantes (<em>ISU</em>, sobre patinaje, y <em>Royal Antwerp</em>, sobre jugadores formados en el club), que apuntan en la misma dirección: más escrutinio de las reglas federativas con efectos económicos.</p>
+<p class="en">The ruling did not order anyone to accept the Super League, nor did it assess whether that particular project complied with EU law. On the same day the Court decided two related cases (<em>ISU</em>, on speed skating, and <em>Royal Antwerp</em>, on homegrown-player rules) pointing the same way: closer scrutiny of governing-body rules with economic effects.</p>
+<h3><span class="es">Por qué importa para la política pública</span><span class="en">Why it matters for public policy</span></h3>
+<ul>
+<li><span class="es">Desplaza parte del poder regulador del deporte desde las federaciones hacia los tribunales y las autoridades de competencia.</span><span class="en">It shifts part of sport's regulatory power from governing bodies to courts and competition authorities.</span></li>
+<li><span class="es">Obliga a las federaciones a <em>justificar</em> sus reglas con procedimientos claros, como haría cualquier regulador.</span><span class="en">It requires governing bodies to <em>justify</em> their rules through clear procedures, as any regulator would.</span></li>
+<li><span class="es">Abre la puerta a que los Estados y la UE se planteen si debe existir una regulación pública más explícita del deporte profesional.</span><span class="en">It invites states and the EU to consider whether professional sport needs more explicit public regulation.</span></li>
+</ul>
+<p class="es"><strong>Para debatir en clase:</strong> ¿la «pirámide» del deporte europeo (ascensos, descensos, solidaridad) debería protegerse por ley o por las propias federaciones?</p>
+<p class="en"><strong>For class discussion:</strong> should the European sports 'pyramid' (promotion, relegation, solidarity) be protected by law or by the governing bodies themselves?</p>
+<h4><span class="es">Referencias</span><span class="en">References</span></h4>
+<ol class="refs">
+<li>CJEU, Case C-333/21, European Superleague Company SL v FIFA and UEFA, ECLI:EU:C:2023:1011.</li>
+<li>CJEU, Case C-124/21 P, International Skating Union v Commission (2023).</li>
+<li>CJEU, Case C-680/21, UL and SA Royal Antwerp Football Club v URBSFA (2023).</li>
+</ol>
+</div></section>
+
+<section id="ley-del-deporte-2022" class="post-sec"><div class="container">
+<p class="ficha">Análisis | 2026-10-14 | Regulación y derecho, España, Gobernanza | Borrador</p>
+<h2 class="post-title"><span class="es">La Ley 39/2022 del Deporte: qué cambia tras 32 años</span><span class="en">Spain's 2022 Sport Act: what changes after 32 years</span></h2>
+<p class="dek"><span class="es">Una lectura en clave de políticas públicas de la ley que sustituye a la de 1990.</span><span class="en">A public-policy reading of the law that replaced Spain's 1990 Sport Act.</span></p>
+<h3 class="keys-title"><span class="es">En cuatro claves</span><span class="en">In four keys</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Cómo debe el Estado ordenar un sistema deportivo que ya no es el de 1990?</span><span class="en"><strong>Issue</strong> How should the state organise a sport system that no longer looks like 1990's?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> Ley 39/2022, de 30 de diciembre, del Deporte, que deroga la Ley 10/1990.</span><span class="en"><strong>Example</strong> Act 39/2022 of 30 December on Sport, which repeals Act 10/1990.</span></li>
+<li><span class="es"><strong>Debate</strong> Intervención pública frente a autonomía de federaciones y ligas profesionales.</span><span class="en"><strong>Debate</strong> Public intervention versus the autonomy of federations and professional leagues.</span></li>
+<li><span class="es"><strong>Implicaciones</strong> Más peso de la igualdad, la protección del deportista y la actividad física como interés general.</span><span class="en"><strong>Implications</strong> Greater weight on equality, athlete protection and physical activity as a matter of general interest.</span></li>
+</ul>
+<p class="es">La Ley del Deporte de 1990 nació pensando en el deporte federado y de alto rendimiento de la era de Barcelona '92. Tres décadas después, el sistema incluye ligas profesionales con enormes ingresos audiovisuales, una práctica mayoritariamente no federada y nuevas exigencias sociales de igualdad e integridad.</p>
+<p class="en">Spain's 1990 Sport Act was designed for the federated, high-performance sport of the Barcelona '92 era. Three decades later, the system includes professional leagues with huge broadcasting revenues, mostly non-federated participation, and new social expectations around equality and integrity.</p>
+<h3><span class="es">Tres ideas clave</span><span class="en">Three key ideas</span></h3>
+<ol>
+<li><span class="es"><strong>La actividad física como cuestión de interés general.</strong> La ley amplía la mirada del deporte de competición a la práctica deportiva de toda la población, conectándola con la salud y la cohesión social.</span><span class="en"><strong>Physical activity as a matter of general interest.</strong> The Act widens the focus from competitive sport to physical activity for the whole population, linking it to health and social cohesion.</span></li>
+<li><span class="es"><strong>Igualdad.</strong> Introduce medidas para la igualdad efectiva entre mujeres y hombres en el deporte, incluida la representación en los órganos de gobierno.</span><span class="en"><strong>Equality.</strong> It introduces measures for effective equality between women and men in sport, including representation on governing boards.</span></li>
+<li><span class="es"><strong>Protección del deportista.</strong> Refuerza derechos de deportistas y la protección frente a la violencia y el abuso, especialmente de menores.</span><span class="en"><strong>Athlete protection.</strong> It strengthens athletes' rights and protection against violence and abuse, especially of minors.</span></li>
+</ol>
+<h3><span class="es">Una lectura desde las políticas públicas</span><span class="en">A public-policy reading</span></h3>
+<p class="es">Desde el análisis de políticas, la ley es un buen ejemplo de <em>regulación por capas</em>: el Estado fija principios y mínimos, mientras que federaciones y ligas mantienen un amplio espacio de autorregulación. La pregunta clave no es solo qué dice la norma, sino <strong>quién la aplica y con qué recursos</strong>: muchas medidas dependen de desarrollos reglamentarios y de la capacidad de las comunidades autónomas.</p>
+<p class="en">From a policy-analysis perspective the Act is a good example of <em>layered regulation</em>: the state sets principles and minimum standards, while federations and leagues keep wide room for self-regulation. The key question is not only what the law says but <strong>who implements it and with what resources</strong>: many measures depend on secondary regulation and on the capacity of the autonomous communities.</p>
+<p class="es"><strong>Para debatir:</strong> ¿una ley estatal puede cambiar la cultura organizativa de las federaciones o solo su forma jurídica?</p>
+<p class="en"><strong>For discussion:</strong> can a national law change the organisational culture of federations, or only their legal form?</p>
+<h4><span class="es">Referencias</span><span class="en">References</span></h4>
+<ol class="refs">
+<li>Ley 39/2022, de 30 de diciembre, del Deporte. BOE núm. 314, 31-12-2022.</li>
+<li>Ley 10/1990, de 15 de octubre, del Deporte (derogada).</li>
+</ol>
+</div></section>
+
+<section id="candidaturas-olimpicas" class="post-sec"><div class="container">
+<p class="ficha">Análisis | 2026-09-30 | Megaeventos, Financiación pública, Gobernanza | Borrador</p>
+<h2 class="post-title"><span class="es">¿Por qué las ciudades dejaron de querer los Juegos Olímpicos?</span><span class="en">Why did cities stop wanting the Olympic Games?</span></h2>
+<p class="dek"><span class="es">Referendos, costes y la respuesta del COI: un caso de política pública en tiempo real.</span><span class="en">Referendums, costs and the IOC's response: a live case of public policy.</span></p>
+<h3 class="keys-title"><span class="es">En cuatro claves</span><span class="en">In four keys</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Compensa a una ciudad invertir dinero público en acoger unos Juegos?</span><span class="en"><strong>Issue</strong> Is it worth a city spending public money to host the Games?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> Retiradas de Oslo (2022), Boston, Hamburgo, Roma y Budapest (2024); doble adjudicación París 2024 – Los Ángeles 2028 en 2017.</span><span class="en"><strong>Example</strong> Withdrawals by Oslo (2022), Boston, Hamburg, Rome and Budapest (2024); the double award of Paris 2024 and Los Angeles 2028 in 2017.</span></li>
+<li><span class="es"><strong>Debate</strong> Legado y prestigio frente a sobrecostes, deuda e infraestructuras infrautilizadas.</span><span class="en"><strong>Debate</strong> Legacy and prestige versus cost overruns, debt and under-used venues.</span></li>
+<li><span class="es"><strong>Implicaciones</strong> Los ciudadanos ganan poder de veto y el COI cambia el procedimiento de elección de sedes.</span><span class="en"><strong>Implications</strong> Citizens gain a veto, and the IOC redesigns how hosts are chosen.</span></li>
+</ul>
+<p class="es">Durante décadas, conseguir unos Juegos se presentó como un éxito de política urbana. Pero en la carrera por los Juegos de Invierno de 2022, Oslo, Estocolmo, Cracovia y Lviv se retiraron, y la elección quedó entre Pekín y Almaty. Para 2024, Boston abandonó, Hamburgo votó «no» en referéndum (2015), y Roma y Budapest también se retiraron.</p>
+<p class="en">For decades, winning the Games was sold as an urban policy triumph. But in the race for the 2022 Winter Games, Oslo, Stockholm, Kraków and Lviv withdrew, leaving Beijing and Almaty. For 2024, Boston pulled out, Hamburg voted 'no' in a 2015 referendum, and Rome and Budapest also withdrew.</p>
+<h3><span class="es">El diagnóstico</span><span class="en">The diagnosis</span></h3>
+<p class="es">La literatura sobre megaeventos coincide en tres problemas recurrentes: <strong>sobrecostes</strong> sistemáticos respecto a lo presupuestado, beneficios económicos menores de lo prometido y un <strong>reparto asimétrico del riesgo</strong>, en el que la ciudad y el Estado asumen las garantías financieras.</p>
+<p class="en">Research on mega-events points to three recurring problems: systematic <strong>cost overruns</strong>, economic benefits smaller than promised, and an <strong>asymmetric allocation of risk</strong>, with the city and the state carrying the financial guarantees.</p>
+<h3><span class="es">La respuesta del COI</span><span class="en">The IOC's response</span></h3>
+<ul>
+<li><span class="es"><strong>Agenda Olímpica 2020</strong> (2014): candidaturas más baratas y uso de instalaciones existentes.</span><span class="en"><strong>Olympic Agenda 2020</strong> (2014): cheaper bids and more use of existing venues.</span></li>
+<li><span class="es"><strong>Doble adjudicación</strong> (2017): París 2024 y Los Ángeles 2028 a la vez, ante la falta de candidatos.</span><span class="en"><strong>Double award</strong> (2017): Paris 2024 and Los Angeles 2028 at once, given the shortage of candidates.</span></li>
+<li><span class="es"><strong>Nuevo procedimiento</strong> (2019): «diálogo» con sedes preferentes en lugar de concursos abiertos; Brisbane 2032 fue la primera elegida así.</span><span class="en"><strong>New process</strong> (2019): targeted 'dialogue' with preferred hosts instead of open contests; Brisbane 2032 was the first chosen this way.</span></li>
+</ul>
+<h3><span class="es">Lección de políticas públicas</span><span class="en">The policy lesson</span></h3>
+<p class="es">Es un ejemplo claro de cómo la <em>participación ciudadana</em> (referendos) y la evidencia académica pueden cambiar el comportamiento de una organización internacional. La pregunta pendiente: ¿se ha reducido el riesgo o solo se ha hecho menos visible?</p>
+<p class="en">This is a clear example of how <em>citizen participation</em> (referendums) and academic evidence can change the behaviour of an international organisation. The open question: has the risk been reduced, or just made less visible?</p>
+<h4><span class="es">Referencias</span><span class="en">References</span></h4>
+<ol class="refs">
+<li>Flyvbjerg, B., Budzier, A. &amp; Lunn, D. (2021). Regression to the tail: Why the Olympics blow up. Environment and Planning A.</li>
+<li>IOC (2014). Olympic Agenda 2020: 20+20 Recommendations.</li>
+</ol>
+</div></section>
+
+<section id="plan-oms-actividad-fisica" class="post-sec"><div class="container">
+<p class="ficha">Análisis | 2026-09-16 | Salud y participación, Gobernanza | Borrador</p>
+<h2 class="post-title"><span class="es">Inactividad física: cuando el deporte se convierte en política de salud</span><span class="en">Physical inactivity: when sport becomes health policy</span></h2>
+<p class="dek"><span class="es">El Plan de Acción Mundial de la OMS y el reto de pasar del objetivo a la implementación.</span><span class="en">The WHO Global Action Plan and the challenge of moving from targets to delivery.</span></p>
+<h3 class="keys-title"><span class="es">En cuatro claves</span><span class="en">In four keys</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Cómo se logra que la población sea más activa con políticas públicas?</span><span class="en"><strong>Issue</strong> How can public policy get people to be more active?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> Plan de Acción Mundial sobre Actividad Física 2018–2030 de la OMS: reducir un 15 % relativo la inactividad para 2030.</span><span class="en"><strong>Example</strong> WHO Global Action Plan on Physical Activity 2018–2030: a 15% relative reduction in inactivity by 2030.</span></li>
+<li><span class="es"><strong>Debate</strong> Políticas de «deporte» (instalaciones, clubes) frente a políticas de «actividad» (urbanismo, transporte, escuela).</span><span class="en"><strong>Debate</strong> 'Sport' policies (venues, clubs) versus 'activity' policies (urban design, transport, schools).</span></li>
+<li><span class="es"><strong>Implicaciones</strong> La política deportiva necesita coordinarse con sanidad, educación, movilidad y urbanismo.</span><span class="en"><strong>Implications</strong> Sport policy must coordinate with health, education, mobility and planning.</span></li>
+</ul>
+<p class="es">Según la OMS, alrededor de un tercio de los adultos del mundo no alcanza los niveles recomendados de actividad física. El dato convierte una cuestión tradicionalmente «deportiva» en un problema de salud pública.</p>
+<p class="en">According to the WHO, around a third of the world's adults do not meet recommended levels of physical activity. That turns a traditionally 'sporting' issue into a public health problem.</p>
+<h3><span class="es">Un plan con cuatro pilares</span><span class="en">A plan with four pillars</span></h3>
+<p class="es">El Plan de Acción Mundial 2018–2030 organiza las medidas en cuatro objetivos: <strong>sociedades activas</strong> (normas y actitudes), <strong>entornos activos</strong> (espacios y ciudades), <strong>personas activas</strong> (programas y oportunidades) y <strong>sistemas activos</strong> (gobernanza, datos y financiación).</p>
+<p class="en">The 2018–2030 Global Action Plan groups measures into four objectives: <strong>active societies</strong> (norms and attitudes), <strong>active environments</strong> (spaces and cities), <strong>active people</strong> (programmes and opportunities) and <strong>active systems</strong> (governance, data and funding).</p>
+<h3><span class="es">El problema de la implementación</span><span class="en">The implementation problem</span></h3>
+<p class="es">Aquí aparece un clásico de las políticas públicas: el objetivo es transversal, pero los presupuestos y competencias están repartidos por sectores. Un carril bici, el horario de educación física o la apertura de patios escolares en fin de semana pueden influir más que un nuevo polideportivo, y ninguno depende del departamento de deportes.</p>
+<p class="en">Here we meet a policy classic: the goal cuts across sectors, but budgets and powers are split by department. A cycle lane, PE timetables or opening school playgrounds at weekends may matter more than a new sports centre — and none of them sits with the sport department.</p>
+<p class="quote es">Lo que no se mide no se gestiona: sin datos comparables, los objetivos quedan en declaraciones.</p>
+<p class="quote en">What isn't measured isn't managed: without comparable data, targets remain declarations.</p>
+<p class="es"><strong>Para debatir:</strong> ¿debería la política deportiva municipal medirse por medallas e instalaciones o por minutos de actividad de la población?</p>
+<p class="en"><strong>For discussion:</strong> should local sport policy be judged by medals and venues, or by minutes of activity across the population?</p>
+<h4><span class="es">Referencias</span><span class="en">References</span></h4>
+<ol class="refs">
+<li>World Health Organization (2018). Global Action Plan on Physical Activity 2018–2030: More Active People for a Healthier World.</li>
+<li>WHO (2024). Global levels of physical inactivity in adults: off track for 2030.</li>
+</ol>
+</div></section>
+
+<section id="rusada-tas" class="post-sec"><div class="container">
+<p class="ficha">Casos | 2026-09-02 | Integridad y dopaje, Gobernanza, Regulación y derecho | Borrador</p>
+<h2 class="post-title"><span class="es">Rusia, la AMA y el TAS: los límites de sancionar a un Estado</span><span class="en">Russia, WADA and CAS: the limits of sanctioning a state</span></h2>
+<p class="dek"><span class="es">Cómo un sistema privado de antidopaje intentó responder a un dopaje organizado desde instituciones públicas.</span><span class="en">How a private anti-doping system tried to respond to doping organised through public institutions.</span></p>
+<h3 class="keys-title"><span class="es">En cuatro claves</span><span class="en">In four keys</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Cómo se sanciona un dopaje sistémico sin castigar a deportistas limpios?</span><span class="en"><strong>Issue</strong> How do you sanction systemic doping without punishing clean athletes?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> La AMA declaró no conforme a RUSADA (2019); el TAS redujo en 2020 la sanción de cuatro a dos años.</span><span class="en"><strong>Example</strong> WADA declared RUSADA non-compliant (2019); in 2020 CAS cut the sanction from four years to two.</span></li>
+<li><span class="es"><strong>Debate</strong> Responsabilidad colectiva frente a responsabilidad individual; eficacia frente a legitimidad.</span><span class="en"><strong>Debate</strong> Collective versus individual responsibility; effectiveness versus legitimacy.</span></li>
+<li><span class="es"><strong>Implicaciones</strong> Figuras como el «deportista neutral» muestran los límites de la autorregulación deportiva.</span><span class="en"><strong>Implications</strong> Devices like the 'neutral athlete' reveal the limits of sporting self-regulation.</span></li>
+</ul>
+<p class="es">Tras las investigaciones sobre el dopaje en Sochi 2014 y la manipulación de datos del laboratorio de Moscú, la Agencia Mundial Antidopaje declaró en diciembre de 2019 que la agencia rusa (RUSADA) no cumplía el Código y propuso sanciones de cuatro años.</p>
+<p class="en">After investigations into doping at Sochi 2014 and manipulation of Moscow laboratory data, the World Anti-Doping Agency declared in December 2019 that Russia's agency (RUSADA) was non-compliant with the Code and proposed four-year sanctions.</p>
+<h3><span class="es">La decisión del TAS</span><span class="en">The CAS decision</span></h3>
+<p class="es">En diciembre de 2020, el Tribunal de Arbitraje Deportivo confirmó la no conformidad, pero <strong>redujo las consecuencias a dos años</strong>. Los deportistas rusos pudieron competir como neutrales, lo que se tradujo en la denominación «ROC» en Tokio 2020 y Pekín 2022.</p>
+<p class="en">In December 2020 the Court of Arbitration for Sport upheld the non-compliance but <strong>reduced the consequences to two years</strong>. Russian athletes could compete as neutrals, which led to the 'ROC' designation at Tokyo 2020 and Beijing 2022.</p>
+<h3><span class="es">Una lectura de gobernanza</span><span class="en">A governance reading</span></h3>
+<ul>
+<li><span class="es">El sistema antidopaje es <em>híbrido</em>: privado en su origen (COI, federaciones) pero apoyado por gobiernos a través de la Convención de la UNESCO.</span><span class="en">The anti-doping system is <em>hybrid</em>: private in origin (IOC, federations) but backed by governments through the UNESCO Convention.</span></li>
+<li><span class="es">Sus sanciones operan sobre organizaciones deportivas, no sobre Estados, lo que limita su capacidad para responder a un dopaje con apoyo institucional.</span><span class="en">Its sanctions bite on sporting organisations, not states, which limits its response to doping with institutional support.</span></li>
+<li><span class="es">La solución intermedia buscó equilibrar disuasión y derechos individuales, y fue criticada desde ambos lados.</span><span class="en">The compromise sought to balance deterrence and individual rights, and was criticised from both sides.</span></li>
+</ul>
+<p class="es"><strong>Para debatir:</strong> ¿debe la lucha antidopaje seguir siendo autorregulación deportiva o necesita más intervención pública internacional?</p>
+<p class="en"><strong>For discussion:</strong> should anti-doping remain sporting self-regulation, or does it need more international public intervention?</p>
+<h4><span class="es">Referencias</span><span class="en">References</span></h4>
+<ol class="refs">
+<li>CAS 2020/O/6689, World Anti-Doping Agency v. Russian Anti-Doping Agency, award of 17 December 2020.</li>
+<li>UNESCO (2005). International Convention against Doping in Sport.</li>
+</ol>
+</div></section>
+
+<section id="resena-sport-politics" class="post-sec"><div class="container">
+<p class="ficha">Lecturas | 2026-08-19 | Gobernanza, Megaeventos | Borrador</p>
+<h2 class="post-title"><span class="es">Reseña breve: <em>Sport Politics: An Introduction</em> (Grix)</span><span class="en">Brief book review: <em>Sport Politics: An Introduction</em> (Grix)</span></h2>
+<p class="dek"><span class="es">Una puerta de entrada para estudiantes que quieren entender por qué el deporte es político.</span><span class="en">An entry point for students who want to understand why sport is political.</span></p>
+<p class="biblio">Jonathan Grix (2016). Sport Politics: An Introduction. London: Palgrave Macmillan.</p>
+<h3 class="keys-title"><span class="es">La reseña en breve</span><span class="en">The review in brief</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Para quién</strong> Estudiantes de grado de Ciencias del Deporte, Gestión Deportiva y Ciencia Política.</span><span class="en"><strong>For whom</strong> Undergraduates in Sport Science, Sport Management and Political Science.</span></li>
+<li><span class="es"><strong>Aporta</strong> Un mapa de los grandes temas: Estado y deporte, megaeventos, poder blando, alto rendimiento y participación.</span><span class="en"><strong>Offers</strong> A map of the big themes: state and sport, mega-events, soft power, elite sport and participation.</span></li>
+<li><span class="es"><strong>Úsalo para</strong> Preparar debates de clase y encontrar bibliografía para trabajos.</span><span class="en"><strong>Use it to</strong> Prepare class debates and find literature for assignments.</span></li>
+<li><span class="es"><strong>Límite</strong> Visión principalmente anglosajona; conviene complementarla con casos españoles y europeos.</span><span class="en"><strong>Limitation</strong> Mainly Anglophone perspective; pair it with Spanish and European cases.</span></li>
+</ul>
+<p class="es">El punto de partida del libro es sencillo y útil para cualquier estudiante: la idea de que «el deporte y la política no se mezclan» es, en sí misma, una posición política. A partir de ahí, Grix recorre cómo gobiernos y organizaciones utilizan el deporte para objetivos que van mucho más allá de la competición.</p>
+<p class="en">The book's starting point is simple and useful for any student: the claim that 'sport and politics don't mix' is itself a political position. From there, Grix shows how governments and organisations use sport for aims that go far beyond competition.</p>
+<h3><span class="es">Qué encontrarás</span><span class="en">What you'll find</span></h3>
+<p class="es">La obra introduce conceptos de la ciencia política (poder, Estado, gobernanza) y los aplica a temas concretos: por qué los Estados invierten en medallas, cómo se justifican los megaeventos, qué significa el «poder blando» de un país anfitrión o por qué cuesta tanto aumentar la participación deportiva de la población.</p>
+<p class="en">It introduces political-science concepts (power, the state, governance) and applies them to concrete issues: why states invest in medals, how mega-events are justified, what a host country's 'soft power' means, and why raising population participation is so hard.</p>
+<h3><span class="es">Valoración</span><span class="en">Assessment</span></h3>
+<p class="es">Su principal virtud es la claridad: cada capítulo funciona como una introducción autónoma con referencias para profundizar. Para nuestro contexto, recomiendo leerlo junto a materiales sobre el modelo deportivo europeo y la Ley 39/2022.</p>
+<p class="en">Its main strength is clarity: each chapter works as a self-contained introduction with pointers for further reading. In our context, I recommend reading it alongside material on the European sport model and Spain's 2022 Sport Act.</p>
+<p class="es"><em>Nota: esta reseña breve no pretende ser exhaustiva, sino ayudar a decidir si el libro merece una lectura completa.</em></p>
+<p class="en"><em>Note: this brief review does not aim to be exhaustive, only to help you decide whether the book deserves a full read.</em></p>
+</div></section>
+
+<section id="acerca" class="page-sec"><div class="container">
+<h2 class="page-title"><span class="es">Acerca de</span><span class="en">About</span></h2>
+<p class="lead es">«Deporte y Políticas Públicas» es un espacio de análisis <strong>claro, conciso y accesible</strong> sobre la relación entre el deporte y la acción de los poderes públicos. Su objetivo es explicar, con ejemplos concretos, los asuntos clave, los debates abiertos y sus implicaciones.</p>
+<p class="lead en">'Sport &amp; Public Policy' is a space for <strong>clear, concise and accessible</strong> analysis of the relationship between sport and public action. Its aim is to explain key issues, open debates and their implications through concrete examples.</p>
+<h3 class="keys-title"><span class="es">Cómo están escritas las entradas</span><span class="en">How posts are written</span></h3>
+<ul class="keys">
+<li><span class="es"><strong>Cuestión</strong> ¿Qué problema público está en juego?</span><span class="en"><strong>Issue</strong> What public problem is at stake?</span></li>
+<li><span class="es"><strong>Ejemplo</strong> Una ley, sentencia, plan o decisión concreta.</span><span class="en"><strong>Example</strong> A specific law, ruling, plan or decision.</span></li>
+<li><span class="es"><strong>Debate</strong> Qué posiciones y argumentos se enfrentan.</span><span class="en"><strong>Debate</strong> Which positions and arguments clash.</span></li>
+<li><span class="es"><strong>Implicaciones</strong> Qué significa para el deporte y la sociedad.</span><span class="en"><strong>Implications</strong> What it means for sport and society.</span></li>
+</ul>
+<h3><span class="es">Secciones</span><span class="en">Sections</span></h3>
+<ul>
+<li><span class="es"><strong>Análisis:</strong> piezas breves sobre un debate de política deportiva.</span><span class="en"><strong>Analysis:</strong> short pieces on a sport-policy debate.</span></li>
+<li><span class="es"><strong>Casos:</strong> una sentencia o decisión explicada paso a paso.</span><span class="en"><strong>Cases:</strong> one ruling or decision unpacked step by step.</span></li>
+<li><span class="es"><strong>Lecturas:</strong> reseñas breves de libros e informes.</span><span class="en"><strong>Literature:</strong> brief reviews of books and reports.</span></li>
+</ul>
+<h3><span class="es">Quién lo coordina</span><span class="en">Who runs it</span></h3>
+<p class="es">El espacio está coordinado por el <strong>Dr. Víctor Jiménez Díaz-Benito</strong>, profesor de la Universidad Europea, con la participación de estudiantes y colaboradores invitados.</p>
+<p class="en">The space is edited by <strong>Dr. Víctor Jiménez Díaz-Benito</strong>, lecturer at Universidad Europea, with contributions from students and guest authors.</p>
+<p class="author-bio es">Profesor de Organización y Gestión del Deporte en la Universidad Europea. Investiga la política, el derecho y la gobernanza del deporte.</p>
+<p class="author-bio en">Lecturer in Sport Organisation and Management at Universidad Europea. Works on sport policy, law and governance.</p>
+</div></section>
+
+<section id="contacto" class="page-sec"><div class="container">
+<h2 class="page-title"><span class="es">Contacto</span><span class="en">Contact</span></h2>
+<p class="es">Para proponer temas, enviar una entrada invitada o comentar un análisis, escribe a:</p>
+<p class="en">To suggest topics, submit a guest post or comment on an analysis, write to:</p>
+<div class="cta-row"><a class="btn" href="mailto:victor.jimenez@universidadeuropea.es"><span class="es">victor.jimenez@universidadeuropea.es</span><span class="en">victor.jimenez@universidadeuropea.es</span></a></div>
+<h3><span class="es">Entradas invitadas</span><span class="en">Guest posts</span></h3>
+<ul>
+<li><span class="es">Entre 600 y 1.000 palabras.</span><span class="en">Between 600 and 1,000 words.</span></li>
+<li><span class="es">Partir de un ejemplo concreto y reciente.</span><span class="en">Start from a concrete, recent example.</span></li>
+<li><span class="es">Incluir las cuatro claves: cuestión, ejemplo, debate e implicaciones.</span><span class="en">Include the four keys: issue, example, debate and implications.</span></li>
+<li><span class="es">Dos o tres referencias para ampliar.</span><span class="en">Two or three references for further reading.</span></li>
+</ul>
+</div></section>
+<!--/editable:main--></div>
+      <div id="view" aria-live="polite"></div>
+    </div>
     <aside id="sidebar"></aside>
   </div>
 </main>
 
 <footer>
-  <div class="wrap cols">
-    <div>
-      <strong style="color:var(--text)"><span class="es">Deporte y Políticas Públicas</span><span class="en">Sport &amp; Public Policy</span></strong>
-      <p><span class="es">Coordinado por el Dr. Víctor Jiménez Díaz-Benito.</span><span class="en">Edited by Dr. Víctor Jiménez Díaz-Benito.</span> <a href="mailto:victor.jimenez@universidadeuropea.es">victor.jimenez@universidadeuropea.es</a></p>
-      <p><span class="es">Las opiniones expresadas son de sus autores. Contenido con fines docentes y divulgativos.</span><span class="en">Views are the authors' own. Content for teaching and outreach purposes.</span></p>
-    </div>
-    <nav aria-label="Pie / Footer">
-      <a href="#/"><span class="es">Inicio</span><span class="en">Home</span></a>
-      <a href="#/temas"><span class="es">Temas</span><span class="en">Topics</span></a>
-      <a href="#/acerca"><span class="es">Acerca de</span><span class="en">About</span></a>
-      <a href="#/contacto"><span class="es">Contacto</span><span class="en">Contact</span></a>
-    </nav>
+  <div class="wrap">
+    <div class="cols" data-region="footer"><!--editable:footer-->
+<div>
+<p class="site-name"><span class="es">Deporte y Políticas Públicas</span><span class="en">Sport &amp; Public Policy</span></p>
+<p><span class="es">Coordinado por el Dr. Víctor Jiménez Díaz-Benito.</span><span class="en">Edited by Dr. Víctor Jiménez Díaz-Benito.</span> <a href="mailto:victor.jimenez@universidadeuropea.es">victor.jimenez@universidadeuropea.es</a></p>
+<p><span class="es">Las opiniones expresadas son de sus autores. Contenido con fines docentes y divulgativos.</span><span class="en">Views are the authors' own. Content for teaching and outreach purposes.</span></p>
+</div>
+<!--/editable:footer--></div>
+    <a class="editor-link" href="#acceso" data-editor-login><span class="es">Acceso editor</span><span class="en">Editor login</span></a>
   </div>
 </footer>
 
 <script>
-/* =====================================================================
-   CONTENIDO — Para añadir una entrada, copia un objeto de POSTS y edítalo.
-   Cada texto tiene versión es / en. draft:true muestra la etiqueta "Borrador".
-   ===================================================================== */
-const AUTHOR = {
-  name: "Dr. Víctor Jiménez Díaz-Benito",
-  initials: "VJ",
-  email: "victor.jimenez@universidadeuropea.es",
-  bio: {
-    es: "Profesor de Organización y Gestión del Deporte en la Universidad Europea. Investiga la política, el derecho y la gobernanza del deporte.",
-    en: "Lecturer in Sport Organisation and Management at Universidad Europea. Works on sport policy, law and governance."
+(function () {
+  'use strict';
+  /* Secciones y temas conocidos. Un tema escrito en la ficha que no esté aquí
+     aparece igualmente (con el mismo nombre en los dos idiomas). */
+  var CATEGORIES = {
+    analisis: { es: 'Análisis', en: 'Analysis', d: { es: 'Piezas breves que explican un debate de política deportiva y sus implicaciones.', en: 'Short pieces explaining a sport policy debate and what it means.' } },
+    casos: { es: 'Casos', en: 'Cases', d: { es: 'Una sentencia, una ley o una decisión concreta, explicada paso a paso.', en: 'One ruling, law or decision, unpacked step by step.' } },
+    lecturas: { es: 'Lecturas', en: 'Literature', d: { es: 'Reseñas breves de libros e informes útiles para estudiantes y profesionales.', en: 'Brief reviews of books and reports for students and practitioners.' } }
+  };
+  var TOPICS = {
+    gobernanza: { es: 'Gobernanza', en: 'Governance' },
+    regulacion: { es: 'Regulación y derecho', en: 'Law & regulation' },
+    megaeventos: { es: 'Megaeventos', en: 'Mega-events' },
+    salud: { es: 'Salud y participación', en: 'Health & participation' },
+    integridad: { es: 'Integridad y dopaje', en: 'Integrity & anti-doping' },
+    financiacion: { es: 'Financiación pública', en: 'Public funding' },
+    ue: { es: 'Unión Europea', en: 'European Union' },
+    espana: { es: 'España', en: 'Spain' }
+  };
+  var AUTHOR = { name: 'Dr. Víctor Jiménez Díaz-Benito', initials: 'VJ' };
+
+  var root = document.documentElement;
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var view = $('#view'), sidebar = $('#sidebar'), postsEl = $('#posts'), routeStyle = $('#routeStyle');
+  var store = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  function lang() { return root.getAttribute('data-lang') === 'en' ? 'en' : 'es'; }
+  function editing() { return root.classList.contains('sm-editing'); }
+  function T(o) { return '<span class="es">' + o.es + '</span><span class="en">' + o.en + '</span>'; }
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/&amp;/g, '&').trim(); }
+  function slugify(s) { return norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'tema'; }
+
+  /* ---------- Leer las entradas del contenido editable ---------- */
+  function bilingual(n) {
+    if (!n) return { es: '', en: '' };
+    var es = $(':scope > .es', n), en = $(':scope > .en', n);
+    if (es || en) return { es: (es || en).innerHTML, en: (en || es).innerHTML };
+    return { es: n.innerHTML, en: n.innerHTML };
   }
-};
-
-const CATEGORIES = {
-  analisis: { es: "Análisis", en: "Analysis", d: { es: "Piezas breves que explican un debate de política deportiva y sus implicaciones.", en: "Short pieces explaining a sport policy debate and what it means." } },
-  casos:    { es: "Casos", en: "Cases", d: { es: "Una sentencia, una ley o una decisión concreta, explicada paso a paso.", en: "One ruling, law or decision, unpacked step by step." } },
-  lecturas: { es: "Lecturas", en: "Literature", d: { es: "Reseñas breves de libros e informes útiles para estudiantes y profesionales.", en: "Brief reviews of books and reports for students and practitioners." } }
-};
-
-const TOPICS = {
-  gobernanza:   { es: "Gobernanza", en: "Governance" },
-  regulacion:   { es: "Regulación y derecho", en: "Law & regulation" },
-  megaeventos:  { es: "Megaeventos", en: "Mega-events" },
-  salud:        { es: "Salud y participación", en: "Health & participation" },
-  integridad:   { es: "Integridad y dopaje", en: "Integrity & anti-doping" },
-  financiacion: { es: "Financiación pública", en: "Public funding" },
-  ue:           { es: "Unión Europea", en: "European Union" },
-  espana:       { es: "España", en: "Spain" }
-};
-
-const POSTS = [
-{
-  slug: "superliga-tjue",
-  date: "2026-10-28", category: "casos", topics: ["regulacion","gobernanza","ue"], draft: true,
-  title: { es: "La Superliga ante el TJUE: ¿quién puede organizar una competición?", en: "The Super League at the CJEU: who gets to organise a competition?" },
-  dek: { es: "Por qué la sentencia de diciembre de 2023 no fue una victoria de la Superliga, sino un aviso a las federaciones.", en: "Why the December 2023 ruling was not a win for the Super League, but a warning to governing bodies." },
-  key: {
-    es: [["Cuestión","¿Pueden FIFA y UEFA exigir autorización previa para crear competiciones rivales y sancionar a quien participe en ellas?"],["Ejemplo","Asunto C-333/21, European Superleague Company c. FIFA y UEFA (Gran Sala, 21-12-2023), planteado por un juzgado de lo mercantil de Madrid."],["Debate","Autonomía del deporte y «modelo europeo» frente a la libre competencia del mercado interior."],["Implicaciones","Las federaciones pueden regular, pero con criterios transparentes, objetivos, no discriminatorios y proporcionados."]],
-    en: [["Issue","May FIFA and UEFA require prior approval for rival competitions and sanction those who take part?"],["Example","Case C-333/21, European Superleague Company v FIFA and UEFA (Grand Chamber, 21 Dec 2023), referred by a Madrid commercial court."],["Debate","Sporting autonomy and the 'European model' versus competition law in the single market."],["Implications","Governing bodies may regulate, but only under transparent, objective, non-discriminatory and proportionate criteria."]]
-  },
-  body: {
-    es: `<p>En abril de 2021, doce grandes clubes europeos anunciaron una Superliga cerrada. El proyecto se desmoronó en 48 horas, pero dejó una pregunta jurídica que acabó en Luxemburgo: ¿puede un organismo que <em>organiza</em> competiciones decidir también quién más puede organizarlas?</p>
-<h2>Qué dijo el Tribunal</h2>
-<p>El Tribunal de Justicia de la UE concluyó que las normas de FIFA y UEFA sobre autorización previa de competiciones, junto con las sanciones a clubes y jugadores, eran contrarias al Derecho de la competencia (arts. 101 y 102 TFUE) <strong>porque no estaban sujetas a criterios</strong> transparentes, objetivos, no discriminatorios y proporcionados. Es decir: el problema no era que existiera un control, sino que fuera discrecional.</p>
-<blockquote>El deporte tiene especificidades, pero no queda fuera del mercado interior cuando es una actividad económica.</blockquote>
-<h2>Lo que no dijo</h2>
-<p>La sentencia no ordenó aceptar la Superliga ni valoró si ese proyecto concreto era compatible con el Derecho de la UE. El mismo día, el Tribunal resolvió otros dos asuntos relevantes (<em>ISU</em>, sobre patinaje, y <em>Royal Antwerp</em>, sobre jugadores formados en el club), que apuntan en la misma dirección: más escrutinio de las reglas federativas con efectos económicos.</p>
-<h2>Por qué importa para la política pública</h2>
-<ul><li>Desplaza parte del poder regulador del deporte desde las federaciones hacia los tribunales y las autoridades de competencia.</li><li>Obliga a las federaciones a <em>justificar</em> sus reglas con procedimientos claros, como haría cualquier regulador.</li><li>Abre la puerta a que los Estados y la UE se planteen si debe existir una regulación pública más explícita del deporte profesional.</li></ul>
-<p><strong>Para debatir en clase:</strong> ¿la «pirámide» del deporte europeo (ascensos, descensos, solidaridad) debería protegerse por ley o por las propias federaciones?</p>`,
-    en: `<p>In April 2021, twelve major European clubs announced a closed Super League. The project collapsed within 48 hours, but it left a legal question that ended up in Luxembourg: can a body that <em>organises</em> competitions also decide who else may organise them?</p>
-<h2>What the Court said</h2>
-<p>The Court of Justice held that FIFA and UEFA rules requiring prior approval of competitions, together with sanctions on clubs and players, breached EU competition law (Arts 101 and 102 TFEU) <strong>because they were not subject to criteria</strong> that were transparent, objective, non-discriminatory and proportionate. The problem was not oversight as such, but discretionary oversight.</p>
-<blockquote>Sport has specific features, but it does not sit outside the single market when it is an economic activity.</blockquote>
-<h2>What it did not say</h2>
-<p>The ruling did not order anyone to accept the Super League, nor did it assess whether that particular project complied with EU law. On the same day the Court decided two related cases (<em>ISU</em>, on speed skating, and <em>Royal Antwerp</em>, on homegrown-player rules) pointing the same way: closer scrutiny of governing-body rules with economic effects.</p>
-<h2>Why it matters for public policy</h2>
-<ul><li>It shifts part of sport's regulatory power from governing bodies to courts and competition authorities.</li><li>It requires governing bodies to <em>justify</em> their rules through clear procedures, as any regulator would.</li><li>It invites states and the EU to consider whether professional sport needs more explicit public regulation.</li></ul>
-<p><strong>For class discussion:</strong> should the European sports 'pyramid' (promotion, relegation, solidarity) be protected by law or by the governing bodies themselves?</p>`
-  },
-  refs: ["CJEU, Case C-333/21, European Superleague Company SL v FIFA and UEFA, ECLI:EU:C:2023:1011.","CJEU, Case C-124/21 P, International Skating Union v Commission (2023).","CJEU, Case C-680/21, UL and SA Royal Antwerp Football Club v URBSFA (2023)."]
-},
-{
-  slug: "ley-del-deporte-2022",
-  date: "2026-10-14", category: "analisis", topics: ["regulacion","espana","gobernanza"], draft: true,
-  title: { es: "La Ley 39/2022 del Deporte: qué cambia tras 32 años", en: "Spain's 2022 Sport Act: what changes after 32 years" },
-  dek: { es: "Una lectura en clave de políticas públicas de la ley que sustituye a la de 1990.", en: "A public-policy reading of the law that replaced Spain's 1990 Sport Act." },
-  key: {
-    es: [["Cuestión","¿Cómo debe el Estado ordenar un sistema deportivo que ya no es el de 1990?"],["Ejemplo","Ley 39/2022, de 30 de diciembre, del Deporte, que deroga la Ley 10/1990."],["Debate","Intervención pública frente a autonomía de federaciones y ligas profesionales."],["Implicaciones","Más peso de la igualdad, la protección del deportista y la actividad física como interés general."]],
-    en: [["Issue","How should the state organise a sport system that no longer looks like 1990's?"],["Example","Act 39/2022 of 30 December on Sport, which repeals Act 10/1990."],["Debate","Public intervention versus the autonomy of federations and professional leagues."],["Implications","Greater weight on equality, athlete protection and physical activity as a matter of general interest."]]
-  },
-  body: {
-    es: `<p>La Ley del Deporte de 1990 nació pensando en el deporte federado y de alto rendimiento de la era de Barcelona '92. Tres décadas después, el sistema incluye ligas profesionales con enormes ingresos audiovisuales, una práctica mayoritariamente no federada y nuevas exigencias sociales de igualdad e integridad.</p>
-<h2>Tres ideas clave</h2>
-<ol><li><strong>La actividad física como cuestión de interés general.</strong> La ley amplía la mirada del deporte de competición a la práctica deportiva de toda la población, conectándola con la salud y la cohesión social.</li><li><strong>Igualdad.</strong> Introduce medidas para la igualdad efectiva entre mujeres y hombres en el deporte, incluida la representación en los órganos de gobierno.</li><li><strong>Protección del deportista.</strong> Refuerza derechos de deportistas y la protección frente a la violencia y el abuso, especialmente de menores.</li></ol>
-<h2>Una lectura desde las políticas públicas</h2>
-<p>Desde el análisis de políticas, la ley es un buen ejemplo de <em>regulación por capas</em>: el Estado fija principios y mínimos, mientras que federaciones y ligas mantienen un amplio espacio de autorregulación. La pregunta clave no es solo qué dice la norma, sino <strong>quién la aplica y con qué recursos</strong>: muchas medidas dependen de desarrollos reglamentarios y de la capacidad de las comunidades autónomas.</p>
-<p><strong>Para debatir:</strong> ¿una ley estatal puede cambiar la cultura organizativa de las federaciones o solo su forma jurídica?</p>`,
-    en: `<p>Spain's 1990 Sport Act was designed for the federated, high-performance sport of the Barcelona '92 era. Three decades later, the system includes professional leagues with huge broadcasting revenues, mostly non-federated participation, and new social expectations around equality and integrity.</p>
-<h2>Three key ideas</h2>
-<ol><li><strong>Physical activity as a matter of general interest.</strong> The Act widens the focus from competitive sport to physical activity for the whole population, linking it to health and social cohesion.</li><li><strong>Equality.</strong> It introduces measures for effective equality between women and men in sport, including representation on governing boards.</li><li><strong>Athlete protection.</strong> It strengthens athletes' rights and protection against violence and abuse, especially of minors.</li></ol>
-<h2>A public-policy reading</h2>
-<p>From a policy-analysis perspective the Act is a good example of <em>layered regulation</em>: the state sets principles and minimum standards, while federations and leagues keep wide room for self-regulation. The key question is not only what the law says but <strong>who implements it and with what resources</strong>: many measures depend on secondary regulation and on the capacity of the autonomous communities.</p>
-<p><strong>For discussion:</strong> can a national law change the organisational culture of federations, or only their legal form?</p>`
-  },
-  refs: ["Ley 39/2022, de 30 de diciembre, del Deporte. BOE núm. 314, 31-12-2022.","Ley 10/1990, de 15 de octubre, del Deporte (derogada)."]
-},
-{
-  slug: "candidaturas-olimpicas",
-  date: "2026-09-30", category: "analisis", topics: ["megaeventos","financiacion","gobernanza"], draft: true,
-  title: { es: "¿Por qué las ciudades dejaron de querer los Juegos Olímpicos?", en: "Why did cities stop wanting the Olympic Games?" },
-  dek: { es: "Referendos, costes y la respuesta del COI: un caso de política pública en tiempo real.", en: "Referendums, costs and the IOC's response: a live case of public policy." },
-  key: {
-    es: [["Cuestión","¿Compensa a una ciudad invertir dinero público en acoger unos Juegos?"],["Ejemplo","Retiradas de Oslo (2022), Boston, Hamburgo, Roma y Budapest (2024); doble adjudicación París 2024 – Los Ángeles 2028 en 2017."],["Debate","Legado y prestigio frente a sobrecostes, deuda e infraestructuras infrautilizadas."],["Implicaciones","Los ciudadanos ganan poder de veto y el COI cambia el procedimiento de elección de sedes."]],
-    en: [["Issue","Is it worth a city spending public money to host the Games?"],["Example","Withdrawals by Oslo (2022), Boston, Hamburg, Rome and Budapest (2024); the double award of Paris 2024 and Los Angeles 2028 in 2017."],["Debate","Legacy and prestige versus cost overruns, debt and under-used venues."],["Implications","Citizens gain a veto, and the IOC redesigns how hosts are chosen."]]
-  },
-  body: {
-    es: `<p>Durante décadas, conseguir unos Juegos se presentó como un éxito de política urbana. Pero en la carrera por los Juegos de Invierno de 2022, Oslo, Estocolmo, Cracovia y Lviv se retiraron, y la elección quedó entre Pekín y Almaty. Para 2024, Boston abandonó, Hamburgo votó «no» en referéndum (2015), y Roma y Budapest también se retiraron.</p>
-<h2>El diagnóstico</h2>
-<p>La literatura sobre megaeventos coincide en tres problemas recurrentes: <strong>sobrecostes</strong> sistemáticos respecto a lo presupuestado, beneficios económicos menores de lo prometido y un <strong>reparto asimétrico del riesgo</strong>, en el que la ciudad y el Estado asumen las garantías financieras.</p>
-<h2>La respuesta del COI</h2>
-<ul><li><strong>Agenda Olímpica 2020</strong> (2014): candidaturas más baratas y uso de instalaciones existentes.</li><li><strong>Doble adjudicación</strong> (2017): París 2024 y Los Ángeles 2028 a la vez, ante la falta de candidatos.</li><li><strong>Nuevo procedimiento</strong> (2019): «diálogo» con sedes preferentes en lugar de concursos abiertos; Brisbane 2032 fue la primera elegida así.</li></ul>
-<h2>Lección de políticas públicas</h2>
-<p>Es un ejemplo claro de cómo la <em>participación ciudadana</em> (referendos) y la evidencia académica pueden cambiar el comportamiento de una organización internacional. La pregunta pendiente: ¿se ha reducido el riesgo o solo se ha hecho menos visible?</p>`,
-    en: `<p>For decades, winning the Games was sold as an urban policy triumph. But in the race for the 2022 Winter Games, Oslo, Stockholm, Kraków and Lviv withdrew, leaving Beijing and Almaty. For 2024, Boston pulled out, Hamburg voted 'no' in a 2015 referendum, and Rome and Budapest also withdrew.</p>
-<h2>The diagnosis</h2>
-<p>Research on mega-events points to three recurring problems: systematic <strong>cost overruns</strong>, economic benefits smaller than promised, and an <strong>asymmetric allocation of risk</strong>, with the city and the state carrying the financial guarantees.</p>
-<h2>The IOC's response</h2>
-<ul><li><strong>Olympic Agenda 2020</strong> (2014): cheaper bids and more use of existing venues.</li><li><strong>Double award</strong> (2017): Paris 2024 and Los Angeles 2028 at once, given the shortage of candidates.</li><li><strong>New process</strong> (2019): targeted 'dialogue' with preferred hosts instead of open contests; Brisbane 2032 was the first chosen this way.</li></ul>
-<h2>The policy lesson</h2>
-<p>This is a clear example of how <em>citizen participation</em> (referendums) and academic evidence can change the behaviour of an international organisation. The open question: has the risk been reduced, or just made less visible?</p>`
-  },
-  refs: ["Flyvbjerg, B., Budzier, A. & Lunn, D. (2021). Regression to the tail: Why the Olympics blow up. Environment and Planning A.","IOC (2014). Olympic Agenda 2020: 20+20 Recommendations."]
-},
-{
-  slug: "plan-oms-actividad-fisica",
-  date: "2026-09-16", category: "analisis", topics: ["salud","gobernanza"], draft: true,
-  title: { es: "Inactividad física: cuando el deporte se convierte en política de salud", en: "Physical inactivity: when sport becomes health policy" },
-  dek: { es: "El Plan de Acción Mundial de la OMS y el reto de pasar del objetivo a la implementación.", en: "The WHO Global Action Plan and the challenge of moving from targets to delivery." },
-  key: {
-    es: [["Cuestión","¿Cómo se logra que la población sea más activa con políticas públicas?"],["Ejemplo","Plan de Acción Mundial sobre Actividad Física 2018–2030 de la OMS: reducir un 15 % relativo la inactividad para 2030."],["Debate","Políticas de «deporte» (instalaciones, clubes) frente a políticas de «actividad» (urbanismo, transporte, escuela)."],["Implicaciones","La política deportiva necesita coordinarse con sanidad, educación, movilidad y urbanismo."]],
-    en: [["Issue","How can public policy get people to be more active?"],["Example","WHO Global Action Plan on Physical Activity 2018–2030: a 15% relative reduction in inactivity by 2030."],["Debate","'Sport' policies (venues, clubs) versus 'activity' policies (urban design, transport, schools)."],["Implications","Sport policy must coordinate with health, education, mobility and planning."]]
-  },
-  body: {
-    es: `<p>Según la OMS, alrededor de un tercio de los adultos del mundo no alcanza los niveles recomendados de actividad física. El dato convierte una cuestión tradicionalmente «deportiva» en un problema de salud pública.</p>
-<h2>Un plan con cuatro pilares</h2>
-<p>El Plan de Acción Mundial 2018–2030 organiza las medidas en cuatro objetivos: <strong>sociedades activas</strong> (normas y actitudes), <strong>entornos activos</strong> (espacios y ciudades), <strong>personas activas</strong> (programas y oportunidades) y <strong>sistemas activos</strong> (gobernanza, datos y financiación).</p>
-<h2>El problema de la implementación</h2>
-<p>Aquí aparece un clásico de las políticas públicas: el objetivo es transversal, pero los presupuestos y competencias están repartidos por sectores. Un carril bici, el horario de educación física o la apertura de patios escolares en fin de semana pueden influir más que un nuevo polideportivo, y ninguno depende del departamento de deportes.</p>
-<blockquote>Lo que no se mide no se gestiona: sin datos comparables, los objetivos quedan en declaraciones.</blockquote>
-<p><strong>Para debatir:</strong> ¿debería la política deportiva municipal medirse por medallas e instalaciones o por minutos de actividad de la población?</p>`,
-    en: `<p>According to the WHO, around a third of the world's adults do not meet recommended levels of physical activity. That turns a traditionally 'sporting' issue into a public health problem.</p>
-<h2>A plan with four pillars</h2>
-<p>The 2018–2030 Global Action Plan groups measures into four objectives: <strong>active societies</strong> (norms and attitudes), <strong>active environments</strong> (spaces and cities), <strong>active people</strong> (programmes and opportunities) and <strong>active systems</strong> (governance, data and funding).</p>
-<h2>The implementation problem</h2>
-<p>Here we meet a policy classic: the goal cuts across sectors, but budgets and powers are split by department. A cycle lane, PE timetables or opening school playgrounds at weekends may matter more than a new sports centre — and none of them sits with the sport department.</p>
-<blockquote>What isn't measured isn't managed: without comparable data, targets remain declarations.</blockquote>
-<p><strong>For discussion:</strong> should local sport policy be judged by medals and venues, or by minutes of activity across the population?</p>`
-  },
-  refs: ["World Health Organization (2018). Global Action Plan on Physical Activity 2018–2030: More Active People for a Healthier World.","WHO (2024). Global levels of physical inactivity in adults: off track for 2030."]
-},
-{
-  slug: "rusada-tas",
-  date: "2026-09-02", category: "casos", topics: ["integridad","gobernanza","regulacion"], draft: true,
-  title: { es: "Rusia, la AMA y el TAS: los límites de sancionar a un Estado", en: "Russia, WADA and CAS: the limits of sanctioning a state" },
-  dek: { es: "Cómo un sistema privado de antidopaje intentó responder a un dopaje organizado desde instituciones públicas.", en: "How a private anti-doping system tried to respond to doping organised through public institutions." },
-  key: {
-    es: [["Cuestión","¿Cómo se sanciona un dopaje sistémico sin castigar a deportistas limpios?"],["Ejemplo","La AMA declaró no conforme a RUSADA (2019); el TAS redujo en 2020 la sanción de cuatro a dos años."],["Debate","Responsabilidad colectiva frente a responsabilidad individual; eficacia frente a legitimidad."],["Implicaciones","Figuras como el «deportista neutral» muestran los límites de la autorregulación deportiva."]],
-    en: [["Issue","How do you sanction systemic doping without punishing clean athletes?"],["Example","WADA declared RUSADA non-compliant (2019); in 2020 CAS cut the sanction from four years to two."],["Debate","Collective versus individual responsibility; effectiveness versus legitimacy."],["Implications","Devices like the 'neutral athlete' reveal the limits of sporting self-regulation."]]
-  },
-  body: {
-    es: `<p>Tras las investigaciones sobre el dopaje en Sochi 2014 y la manipulación de datos del laboratorio de Moscú, la Agencia Mundial Antidopaje declaró en diciembre de 2019 que la agencia rusa (RUSADA) no cumplía el Código y propuso sanciones de cuatro años.</p>
-<h2>La decisión del TAS</h2>
-<p>En diciembre de 2020, el Tribunal de Arbitraje Deportivo confirmó la no conformidad, pero <strong>redujo las consecuencias a dos años</strong>. Los deportistas rusos pudieron competir como neutrales, lo que se tradujo en la denominación «ROC» en Tokio 2020 y Pekín 2022.</p>
-<h2>Una lectura de gobernanza</h2>
-<ul><li>El sistema antidopaje es <em>híbrido</em>: privado en su origen (COI, federaciones) pero apoyado por gobiernos a través de la Convención de la UNESCO.</li><li>Sus sanciones operan sobre organizaciones deportivas, no sobre Estados, lo que limita su capacidad para responder a un dopaje con apoyo institucional.</li><li>La solución intermedia buscó equilibrar disuasión y derechos individuales, y fue criticada desde ambos lados.</li></ul>
-<p><strong>Para debatir:</strong> ¿debe la lucha antidopaje seguir siendo autorregulación deportiva o necesita más intervención pública internacional?</p>`,
-    en: `<p>After investigations into doping at Sochi 2014 and manipulation of Moscow laboratory data, the World Anti-Doping Agency declared in December 2019 that Russia's agency (RUSADA) was non-compliant with the Code and proposed four-year sanctions.</p>
-<h2>The CAS decision</h2>
-<p>In December 2020 the Court of Arbitration for Sport upheld the non-compliance but <strong>reduced the consequences to two years</strong>. Russian athletes could compete as neutrals, which led to the 'ROC' designation at Tokyo 2020 and Beijing 2022.</p>
-<h2>A governance reading</h2>
-<ul><li>The anti-doping system is <em>hybrid</em>: private in origin (IOC, federations) but backed by governments through the UNESCO Convention.</li><li>Its sanctions bite on sporting organisations, not states, which limits its response to doping with institutional support.</li><li>The compromise sought to balance deterrence and individual rights, and was criticised from both sides.</li></ul>
-<p><strong>For discussion:</strong> should anti-doping remain sporting self-regulation, or does it need more international public intervention?</p>`
-  },
-  refs: ["CAS 2020/O/6689, World Anti-Doping Agency v. Russian Anti-Doping Agency, award of 17 December 2020.","UNESCO (2005). International Convention against Doping in Sport."]
-},
-{
-  slug: "resena-sport-politics",
-  date: "2026-08-19", category: "lecturas", topics: ["gobernanza","megaeventos"], draft: true,
-  title: { es: "Reseña breve: <em>Sport Politics: An Introduction</em> (Grix)", en: "Brief book review: <em>Sport Politics: An Introduction</em> (Grix)" },
-  dek: { es: "Una puerta de entrada para estudiantes que quieren entender por qué el deporte es político.", en: "An entry point for students who want to understand why sport is political." },
-  biblio: "Jonathan Grix (2016). Sport Politics: An Introduction. London: Palgrave Macmillan.",
-  key: {
-    es: [["Para quién","Estudiantes de grado de Ciencias del Deporte, Gestión Deportiva y Ciencia Política."],["Aporta","Un mapa de los grandes temas: Estado y deporte, megaeventos, poder blando, alto rendimiento y participación."],["Úsalo para","Preparar debates de clase y encontrar bibliografía para trabajos."],["Límite","Visión principalmente anglosajona; conviene complementarla con casos españoles y europeos."]],
-    en: [["For whom","Undergraduates in Sport Science, Sport Management and Political Science."],["Offers","A map of the big themes: state and sport, mega-events, soft power, elite sport and participation."],["Use it to","Prepare class debates and find literature for assignments."],["Limitation","Mainly Anglophone perspective; pair it with Spanish and European cases."]]
-  },
-  body: {
-    es: `<p>El punto de partida del libro es sencillo y útil para cualquier estudiante: la idea de que «el deporte y la política no se mezclan» es, en sí misma, una posición política. A partir de ahí, Grix recorre cómo gobiernos y organizaciones utilizan el deporte para objetivos que van mucho más allá de la competición.</p>
-<h2>Qué encontrarás</h2>
-<p>La obra introduce conceptos de la ciencia política (poder, Estado, gobernanza) y los aplica a temas concretos: por qué los Estados invierten en medallas, cómo se justifican los megaeventos, qué significa el «poder blando» de un país anfitrión o por qué cuesta tanto aumentar la participación deportiva de la población.</p>
-<h2>Valoración</h2>
-<p>Su principal virtud es la claridad: cada capítulo funciona como una introducción autónoma con referencias para profundizar. Para nuestro contexto, recomiendo leerlo junto a materiales sobre el modelo deportivo europeo y la Ley 39/2022.</p>
-<p><em>Nota: esta reseña breve no pretende ser exhaustiva, sino ayudar a decidir si el libro merece una lectura completa.</em></p>`,
-    en: `<p>The book's starting point is simple and useful for any student: the claim that 'sport and politics don't mix' is itself a political position. From there, Grix shows how governments and organisations use sport for aims that go far beyond competition.</p>
-<h2>What you'll find</h2>
-<p>It introduces political-science concepts (power, the state, governance) and applies them to concrete issues: why states invest in medals, how mega-events are justified, what a host country's 'soft power' means, and why raising population participation is so hard.</p>
-<h2>Assessment</h2>
-<p>Its main strength is clarity: each chapter works as a self-contained introduction with pointers for further reading. In our context, I recommend reading it alongside material on the European sport model and Spain's 2022 Sport Act.</p>
-<p><em>Note: this brief review does not aim to be exhaustive, only to help you decide whether the book deserves a full read.</em></p>`
-  },
-  refs: []
-}
-];
-
-/* ===================================================================== */
-const $ = s => document.querySelector(s);
-const view = $("#view"), sidebar = $("#sidebar");
-const store = { get(k){ try{ return localStorage.getItem(k) }catch(e){ return null } }, set(k,v){ try{ localStorage.setItem(k,v) }catch(e){} } };
-const T = o => `<span class="es">${o.es}</span><span class="en">${o.en}</span>`;
-const strip = h => h.replace(/<[^>]+>/g,"");
-const posts = POSTS.slice().sort((a,b)=>b.date.localeCompare(a.date));
-const lang = () => document.documentElement.dataset.lang;
-const fmtDate = d => { const dt = new Date(d+"T12:00:00"); return T({ es: dt.toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"}), en: dt.toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}) }); };
-const mins = p => { const w = strip(p.body.es).split(/\s+/).length; return Math.max(2, Math.round(w/200)); };
-const draftTag = p => p.draft ? `<span class="draft">${T({es:"Borrador",en:"Draft"})}</span>` : "";
-
-function meta(p){
-  return `<div class="meta"><span>${fmtDate(p.date)}</span><span>${AUTHOR.name}</span><span>${mins(p)} min ${T({es:"de lectura",en:"read"})}</span>${draftTag(p)}</div>`;
-}
-function card(p, big){
-  const cat = CATEGORIES[p.category];
-  const head = big ? `<h2><a href="#/entrada/${p.slug}">${T(p.title)}</a></h2>` : `<h3><a href="#/entrada/${p.slug}">${T(p.title)}</a></h3>`;
-  return `<div class="${big?"featured":"card"}"><a class="cat" href="#/categoria/${p.category}">${T(cat)}</a>${head}<p class="excerpt">${T(p.dek)}</p>${meta(p)}<p style="margin:12px 0 0"><a class="more" href="#/entrada/${p.slug}">${T({es:"Seguir leyendo →",en:"Continue reading →"})}</a></p></div>`;
-}
-
-function renderSidebar(){
-  const catCounts = Object.keys(CATEGORIES).map(k=>`<li><a href="#/categoria/${k}"><span>${T(CATEGORIES[k])}</span><span class="n">${posts.filter(p=>p.category===k).length}</span></a></li>`).join("");
-  const topics = Object.keys(TOPICS).filter(k=>posts.some(p=>p.topics.includes(k))).map(k=>`<a class="tag" href="#/tema/${k}">${T(TOPICS[k])}</a>`).join("");
-  sidebar.innerHTML = `
-  <div class="widget"><h4>${T({es:"Buscar",en:"Search"})}</h4>
-    <form class="search" role="search" id="searchForm"><input id="q" type="search" placeholder="${lang()==="es"?"Ley, dopaje, Juegos…":"Law, doping, Olympics…"}" aria-label="Search"><button type="submit">→</button></form></div>
-  <div class="widget about-w"><h4>${T({es:"Sobre este espacio",en:"About this space"})}</h4>
-    <p>${T({es:"Un lugar para explicar, con ejemplos concretos, los grandes debates de la política deportiva y sus implicaciones. Pensado para estudiantes, profesionales y cualquier persona interesada.",en:"A place to explain, through concrete examples, the key debates in sport policy and what they mean. For students, practitioners and anyone interested."})}</p>
-    <a href="#/acerca">${T({es:"Más información →",en:"Learn more →"})}</a></div>
-  <div class="widget"><h4>${T({es:"Secciones",en:"Sections"})}</h4><ul class="catlist">${catCounts}</ul></div>
-  <div class="widget"><h4>${T({es:"Entradas recientes",en:"Recent posts"})}</h4><ul class="recent">${posts.slice(0,4).map(p=>`<li><a href="#/entrada/${p.slug}">${T(p.title)}</a><small>${fmtDate(p.date)}</small></li>`).join("")}</ul></div>
-  <div class="widget"><h4>${T({es:"Temas",en:"Topics"})}</h4><div class="tagcloud">${topics}</div></div>
-  <div class="widget about-w"><h4>${T({es:"Colabora",en:"Contribute"})}</h4>
-    <p>${T({es:"¿Quieres proponer un tema o escribir una entrada invitada?",en:"Want to suggest a topic or write a guest post?"})}</p>
-    <a class="btn" href="#/contacto">${T({es:"Escríbenos",en:"Get in touch"})}</a></div>`;
-  $("#searchForm").addEventListener("submit", e=>{ e.preventDefault(); location.hash = "#/buscar/" + encodeURIComponent($("#q").value.trim()); });
-}
-
-function viewHome(){
-  const [first, ...rest] = posts;
-  return `<section class="intro">
-    <p>${T({es:"El deporte es también política pública: leyes, sentencias, subvenciones, candidaturas y planes de salud deciden cómo se practica, se financia y se gobierna.",en:"Sport is also public policy: laws, court rulings, subsidies, bids and health plans shape how it is played, funded and governed."})}</p>
-    <p>${T({es:"Cada entrada parte de un ejemplo concreto y lo resume en cuatro claves: <strong>cuestión, ejemplo, debate e implicaciones</strong>.",en:"Each post starts from a concrete example and sums it up in four keys: <strong>issue, example, debate and implications</strong>."})}</p>
-  </section>
-  <h2 class="section-title">${T({es:"Última entrada",en:"Latest"})}</h2>
-  ${card(first,true)}
-  <h2 class="section-title">${T({es:"Más entradas",en:"More posts"})}</h2>
-  ${rest.map(p=>card(p)).join("")}`;
-}
-
-function viewList(title, desc, list, kicker){
-  return `<div class="listhead">${kicker?`<span class="cat">${kicker}</span>`:""}<h2>${title}</h2>${desc?`<p>${desc}</p>`:""}</div>
-  ${list.length ? list.map(p=>card(p)).join("") : `<p class="empty">${T({es:"No hay entradas que coincidan.",en:"No matching posts."})}</p>`}`;
-}
-
-function viewPost(slug){
-  const i = posts.findIndex(p=>p.slug===slug);
-  if (i<0) return viewNotFound();
-  const p = posts[i], cat = CATEGORIES[p.category];
-  const keyH = p.category==="lecturas" ? {es:"La reseña en breve",en:"The review in brief"} : {es:"En cuatro claves",en:"In four keys"};
-  const keybox = l => `<div class="keybox ${l}"><h2>${keyH[l]}</h2><dl>${p.key[l].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl></div>`;
-  const newer = posts[i-1], older = posts[i+1];
-  const related = posts.filter(q=>q!==p && q.topics.some(t=>p.topics.includes(t))).slice(0,3);
-  const url = location.href.split("#")[0] + "#/entrada/" + p.slug;
-  const plain = strip(lang()==="es"?p.title.es:p.title.en);
-  document.title = plain + " · " + (lang()==="es"?"Deporte y Políticas Públicas":"Sport & Public Policy");
-  return `<article class="post">
-    <header><a class="cat" href="#/categoria/${p.category}">${T(cat)}</a>
-      <h1>${T(p.title)}</h1><p class="dek">${T(p.dek)}</p></header>
-    <div class="byline"><span class="avatar" aria-hidden="true">${AUTHOR.initials}</span>
-      <div class="who"><strong>${AUTHOR.name}</strong><span>${fmtDate(p.date)} · ${mins(p)} min ${T({es:"de lectura",en:"read"})}</span></div>
-      <span style="margin-left:auto">${draftTag(p)}</span></div>
-    ${p.biblio?`<p class="biblio">${p.biblio}</p>`:""}
-    ${keybox("es")}${keybox("en")}
-    <div class="body"><div class="es">${p.body.es}</div><div class="en">${p.body.en}</div></div>
-    ${p.refs.length?`<div class="refs"><h3>${T({es:"Referencias",en:"References"})}</h3><ol>${p.refs.map(r=>`<li>${r}</li>`).join("")}</ol></div>`:""}
-    <div class="postfoot">${T({es:"Publicado en",en:"Posted in"})} <a href="#/categoria/${p.category}">${T(cat)}</a>
-      <div class="tags">${p.topics.map(t=>`<a class="tag" href="#/tema/${t}">${T(TOPICS[t])}</a>`).join("")}</div></div>
-    <div class="share"><strong style="font-size:13px">${T({es:"Compartir:",en:"Share:"})}</strong>
-      <a target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}">LinkedIn</a>
-      <a target="_blank" rel="noopener" href="https://x.com/intent/post?text=${encodeURIComponent(plain)}&url=${encodeURIComponent(url)}">X</a>
-      <a href="mailto:?subject=${encodeURIComponent(plain)}&body=${encodeURIComponent(url)}">Email</a>
-      <button type="button" data-copy="${url}">${T({es:"Copiar enlace",en:"Copy link"})}</button></div>
-    <div class="authorbox"><span class="avatar" aria-hidden="true">${AUTHOR.initials}</span>
-      <div><strong>${AUTHOR.name}</strong><p>${T(AUTHOR.bio)}</p><p><a href="#/autor">${T({es:"Ver todas sus entradas →",en:"View all posts →"})}</a></p></div></div>
-    <nav class="pn" aria-label="${lang()==="es"?"Entradas":"Posts"}">
-      ${older?`<a class="prev" href="#/entrada/${older.slug}"><small>← ${T({es:"Anterior",en:"Previous"})}</small><span>${T(older.title)}</span></a>`:"<span></span>"}
-      ${newer?`<a class="next" href="#/entrada/${newer.slug}"><small>${T({es:"Siguiente",en:"Next"})} →</small><span>${T(newer.title)}</span></a>`:""}
-    </nav>
-    ${related.length?`<section class="related"><h2 class="section-title">${T({es:"Relacionadas",en:"Related"})}</h2><ul>${related.map(r=>`<li><a href="#/entrada/${r.slug}">${T(r.title)}</a></li>`).join("")}</ul></section>`:""}
-  </article>`;
-}
-
-function viewTopics(){
-  return `<div class="listhead"><h2>${T({es:"Temas",en:"Topics"})}</h2><p>${T({es:"Explora las entradas por área de política pública.",en:"Browse posts by policy area."})}</p></div>
-  <ul class="catlist">${Object.keys(TOPICS).map(k=>`<li><a href="#/tema/${k}"><span>${T(TOPICS[k])}</span><span class="n">${posts.filter(p=>p.topics.includes(k)).length}</span></a></li>`).join("")}</ul>`;
-}
-
-function viewAbout(){
-  return `<div class="page"><h1>${T({es:"Acerca de",en:"About"})}</h1><div class="body">
-  <div class="es"><p>«Deporte y Políticas Públicas» es un espacio de análisis <strong>claro, conciso y accesible</strong> sobre la relación entre el deporte y la acción de los poderes públicos. Su objetivo es explicar, con ejemplos concretos, los asuntos clave, los debates abiertos y sus implicaciones.</p>
-  <h2>Cómo están escritas las entradas</h2></div>
-  <div class="en"><p>'Sport &amp; Public Policy' is a space for <strong>clear, concise and accessible</strong> analysis of the relationship between sport and public action. Its aim is to explain key issues, open debates and their implications through concrete examples.</p>
-  <h2>How posts are written</h2></div>
-  <div class="formatgrid">
-    <div><b>${T({es:"Cuestión",en:"Issue"})}</b><p>${T({es:"¿Qué problema público está en juego?",en:"What public problem is at stake?"})}</p></div>
-    <div><b>${T({es:"Ejemplo",en:"Example"})}</b><p>${T({es:"Una ley, sentencia, plan o decisión concreta.",en:"A specific law, ruling, plan or decision."})}</p></div>
-    <div><b>${T({es:"Debate",en:"Debate"})}</b><p>${T({es:"Qué posiciones y argumentos se enfrentan.",en:"Which positions and arguments clash."})}</p></div>
-    <div><b>${T({es:"Implicaciones",en:"Implications"})}</b><p>${T({es:"Qué significa para el deporte y la sociedad.",en:"What it means for sport and society."})}</p></div>
-  </div>
-  <div class="es"><h2>Secciones</h2><ul><li><strong>Análisis:</strong> piezas breves sobre un debate de política deportiva.</li><li><strong>Casos:</strong> una sentencia o decisión explicada paso a paso.</li><li><strong>Lecturas:</strong> reseñas breves de libros e informes.</li></ul>
-  <h2>Quién lo coordina</h2><p>El espacio está coordinado por el <strong>Dr. Víctor Jiménez Díaz-Benito</strong>, profesor de la Universidad Europea, con la participación de estudiantes y colaboradores invitados.</p></div>
-  <div class="en"><h2>Sections</h2><ul><li><strong>Analysis:</strong> short pieces on a sport-policy debate.</li><li><strong>Cases:</strong> one ruling or decision unpacked step by step.</li><li><strong>Literature:</strong> brief reviews of books and reports.</li></ul>
-  <h2>Who runs it</h2><p>The space is edited by <strong>Dr. Víctor Jiménez Díaz-Benito</strong>, lecturer at Universidad Europea, with contributions from students and guest authors.</p></div>
-  </div></div>`;
-}
-
-function viewContact(){
-  return `<div class="page"><h1>${T({es:"Contacto",en:"Contact"})}</h1><div class="body">
-  <p>${T({es:"Para proponer temas, enviar una entrada invitada o comentar un análisis, escribe a:",en:"To suggest topics, submit a guest post or comment on an analysis, write to:"})}</p>
-  <p><a class="btn" href="mailto:${AUTHOR.email}?subject=${encodeURIComponent("Deporte y Políticas Públicas")}">${AUTHOR.email}</a></p>
-  <h2>${T({es:"Entradas invitadas",en:"Guest posts"})}</h2>
-  <ul>${T({es:"<li>Entre 600 y 1.000 palabras.</li><li>Partir de un ejemplo concreto y reciente.</li><li>Incluir las cuatro claves: cuestión, ejemplo, debate e implicaciones.</li><li>Dos o tres referencias para ampliar.</li>",en:"<li>Between 600 and 1,000 words.</li><li>Start from a concrete, recent example.</li><li>Include the four keys: issue, example, debate and implications.</li><li>Two or three references for further reading.</li>"})}</ul>
-  </div></div>`;
-}
-
-function viewNotFound(){
-  return `<div class="page"><h1>${T({es:"Página no encontrada",en:"Page not found"})}</h1><p><a href="#/">${T({es:"Volver al inicio",en:"Back to home"})}</a></p></div>`;
-}
-
-function route(){
-  const parts = (location.hash.replace(/^#\/?/,"") || "").split("/");
-  const [r, arg] = [parts[0], decodeURIComponent(parts.slice(1).join("/"))];
-  document.title = lang()==="es" ? "Deporte y Políticas Públicas" : "Sport & Public Policy";
-  let html, nav = "home";
-  if (!r) html = viewHome();
-  else if (r==="entrada") { html = viewPost(arg); nav = (posts.find(p=>p.slug===arg)||{}).category; }
-  else if (r==="categoria" && CATEGORIES[arg]) { html = viewList(T(CATEGORIES[arg]), T(CATEGORIES[arg].d), posts.filter(p=>p.category===arg), T({es:"Sección",en:"Section"})); nav = arg; }
-  else if (r==="tema" && TOPICS[arg]) { html = viewList(T(TOPICS[arg]), "", posts.filter(p=>p.topics.includes(arg)), T({es:"Tema",en:"Topic"})); nav = "temas"; }
-  else if (r==="temas") { html = viewTopics(); nav = "temas"; }
-  else if (r==="autor") { html = viewList(AUTHOR.name, T(AUTHOR.bio), posts, T({es:"Autor",en:"Author"})); nav = ""; }
-  else if (r==="buscar") {
-    const q = arg.toLowerCase();
-    const res = q ? posts.filter(p=>[p.title.es,p.title.en,p.dek.es,p.dek.en,p.body.es,p.body.en,...p.topics.map(t=>TOPICS[t].es+" "+TOPICS[t].en)].some(s=>strip(s).toLowerCase().includes(q))) : [];
-    html = viewList(T({es:`Resultados para «${arg.replace(/</g,"&lt;")}»`,en:`Results for “${arg.replace(/</g,"&lt;")}”`}), T({es:`${res.length} entrada(s)`,en:`${res.length} post(s)`}), res, T({es:"Búsqueda",en:"Search"})); nav = "";
+  function parseDate(s) {
+    var m = /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(s) || null;
+    if (m) return m[1] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[3]).slice(-2);
+    m = /(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})/.exec(s);
+    if (m) return m[3] + '-' + ('0' + m[2]).slice(-2) + '-' + ('0' + m[1]).slice(-2);
+    return '';
   }
-  else if (r==="acerca") { html = viewAbout(); nav = "acerca"; }
-  else if (r==="contacto") { html = viewContact(); nav = "contacto"; }
-  else html = viewNotFound();
-  view.innerHTML = html;
-  document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active", a.dataset.nav===nav));
-  renderSidebar();
-  if (r==="buscar") $("#q").value = arg;
-  window.scrollTo({top: r ? document.querySelector("nav.main").offsetTop : 0});
-}
+  function parseFicha(text) {
+    var parts = String(text || '').split('|').map(function (s) { return s.trim(); });
+    var out = { category: 'analisis', date: '', topics: [], draft: false };
+    parts.forEach(function (p, i) {
+      var n = norm(p);
+      if (!n) return;
+      if (/^(borrador|draft)$/.test(n)) { out.draft = true; return; }
+      var cat = Object.keys(CATEGORIES).filter(function (k) { return norm(CATEGORIES[k].es) === n || norm(CATEGORIES[k].en) === n || k === n; })[0];
+      if (cat) { out.category = cat; return; }
+      var d = parseDate(p);
+      if (d && !out.date) { out.date = d; return; }
+      if (i >= 2 || p.indexOf(',') >= 0) {
+        p.split(',').forEach(function (tp) {
+          var tn = norm(tp); if (!tn) return;
+          var k = Object.keys(TOPICS).filter(function (x) { return norm(TOPICS[x].es) === tn || norm(TOPICS[x].en) === tn || x === tn; })[0];
+          if (!k) { k = slugify(tp); if (!TOPICS[k]) TOPICS[k] = { es: esc(tp.trim()), en: esc(tp.trim()) }; }
+          if (out.topics.indexOf(k) < 0) out.topics.push(k);
+        });
+      }
+    });
+    return out;
+  }
+  function readPosts() {
+    return $$(':scope > section.post-sec[id]', postsEl).map(function (sec) {
+      var f = parseFicha(($('.ficha', sec) || {}).textContent);
+      var words = (sec.textContent || '').split(/\s+/).length / 2; // dos idiomas
+      return {
+        id: sec.id, el: sec, category: f.category, date: f.date, topics: f.topics, draft: f.draft,
+        title: bilingual($('h2', sec)), dek: bilingual($('.dek', sec)),
+        mins: Math.max(2, Math.round(words / 200)),
+        text: norm(sec.textContent)
+      };
+    }).sort(function (a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  }
 
-function setLang(l){
-  document.documentElement.dataset.lang = l;
-  document.documentElement.lang = l;
-  document.querySelectorAll("[data-setlang]").forEach(b=>b.setAttribute("aria-pressed", b.dataset.setlang===l));
-  store.set("spp-lang", l);
-}
-document.querySelectorAll("[data-setlang]").forEach(b=>b.addEventListener("click",()=>{ setLang(b.dataset.setlang); route(); }));
+  /* ---------- Piezas comunes ---------- */
+  function fmtDate(d) {
+    if (!d) return '';
+    var dt = new Date(d + 'T12:00:00');
+    if (isNaN(dt)) return '';
+    return T({ es: dt.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }), en: dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) });
+  }
+  function draftTag(p) { return p.draft ? '<span class="draft">' + T({ es: 'Borrador', en: 'Draft' }) + '</span>' : ''; }
+  function meta(p) {
+    return '<div class="meta"><span>' + fmtDate(p.date) + '</span><span>' + AUTHOR.name + '</span><span>' + p.mins + ' min ' + T({ es: 'de lectura', en: 'read' }) + '</span>' + draftTag(p) + '</div>';
+  }
+  function card(p, big) {
+    var head = big ? '<h2><a href="#' + p.id + '">' + T(p.title) + '</a></h2>' : '<h3><a href="#' + p.id + '">' + T(p.title) + '</a></h3>';
+    return '<div class="' + (big ? 'featured' : 'card') + '"><a class="cat" href="#/categoria/' + p.category + '">' + T(CATEGORIES[p.category]) + '</a>' + head +
+      '<p class="excerpt">' + T(p.dek) + '</p>' + meta(p) + '<p style="margin:12px 0 0"><a class="more" href="#' + p.id + '">' + T({ es: 'Seguir leyendo →', en: 'Continue reading →' }) + '</a></p></div>';
+  }
+  function list(title, desc, items, kicker) {
+    return '<div class="listhead">' + (kicker ? '<span class="cat">' + kicker + '</span>' : '') + '<h2>' + title + '</h2>' + (desc ? '<p>' + desc + '</p>' : '') + '</div>' +
+      (items.length ? items.map(function (p) { return card(p); }).join('') : '<p class="empty">' + T({ es: 'No hay entradas que coincidan.', en: 'No matching posts.' }) + '</p>');
+  }
 
-$("#themeBtn").addEventListener("click",()=>{
-  const root = document.documentElement;
-  const dark = root.dataset.theme ? root.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches;
-  root.dataset.theme = dark ? "light" : "dark";
-  store.set("spp-theme", root.dataset.theme);
-});
-document.addEventListener("click", e=>{
-  const b = e.target.closest("[data-copy]"); if(!b) return;
-  navigator.clipboard?.writeText(b.dataset.copy).then(()=>{ b.innerHTML = T({es:"¡Copiado!",en:"Copied!"}); });
-});
+  /* ---------- Barra lateral ---------- */
+  function renderSidebar(posts) {
+    var about = $('#acerca p.lead.es'), aboutEn = $('#acerca p.lead.en');
+    var cats = Object.keys(CATEGORIES).map(function (k) {
+      return '<li><a href="#/categoria/' + k + '"><span>' + T(CATEGORIES[k]) + '</span><span class="n">' + posts.filter(function (p) { return p.category === k; }).length + '</span></a></li>';
+    }).join('');
+    var used = Object.keys(TOPICS).filter(function (k) { return posts.some(function (p) { return p.topics.indexOf(k) >= 0; }); });
+    sidebar.innerHTML =
+      '<div class="widget"><h4>' + T({ es: 'Buscar', en: 'Search' }) + '</h4><form class="search" role="search" id="searchForm"><input id="q" type="search" placeholder="' + (lang() === 'es' ? 'Ley, dopaje, Juegos…' : 'Law, doping, Olympics…') + '" aria-label="Search"><button type="submit">→</button></form></div>' +
+      (about ? '<div class="widget about-w"><h4>' + T({ es: 'Sobre este espacio', en: 'About this space' }) + '</h4><p>' + T({ es: about.innerHTML, en: (aboutEn || about).innerHTML }) + '</p><a href="#acerca">' + T({ es: 'Más información →', en: 'Learn more →' }) + '</a></div>' : '') +
+      '<div class="widget"><h4>' + T({ es: 'Secciones', en: 'Sections' }) + '</h4><ul class="catlist">' + cats + '</ul></div>' +
+      '<div class="widget"><h4>' + T({ es: 'Entradas recientes', en: 'Recent posts' }) + '</h4><ul class="recent">' + posts.slice(0, 4).map(function (p) { return '<li><a href="#' + p.id + '">' + T(p.title) + '</a><small>' + fmtDate(p.date) + '</small></li>'; }).join('') + '</ul></div>' +
+      '<div class="widget"><h4>' + T({ es: 'Temas', en: 'Topics' }) + '</h4><div class="tagcloud">' + used.map(function (k) { return '<a class="tag" href="#/tema/' + k + '">' + T(TOPICS[k]) + '</a>'; }).join('') + '</div></div>' +
+      '<div class="widget about-w"><h4>' + T({ es: 'Colabora', en: 'Contribute' }) + '</h4><p>' + T({ es: '¿Quieres proponer un tema o escribir una entrada invitada?', en: 'Want to suggest a topic or write a guest post?' }) + '</p><a class="btn" href="#contacto">' + T({ es: 'Escríbenos', en: 'Get in touch' }) + '</a></div>';
+    $('#searchForm').addEventListener('submit', function (e) { e.preventDefault(); location.hash = '#/buscar/' + encodeURIComponent($('#q').value.trim()); });
+  }
 
-const savedTheme = store.get("spp-theme"); if (savedTheme) document.documentElement.dataset.theme = savedTheme;
-setLang(store.get("spp-lang") || ((navigator.language||"es").startsWith("es") ? "es" : "en"));
-window.addEventListener("hashchange", route);
-route();
+  /* ---------- Vista de una entrada: añadidos que no se guardan (clase sm-ui) ---------- */
+  function decoratePost(p, posts) {
+    var c = $(':scope > .container', p.el);
+    var h2 = $('h2', c), dek = $('.dek', c);
+    var kick = document.createElement('a');
+    kick.className = 'cat sm-ui'; kick.href = '#/categoria/' + p.category; kick.innerHTML = T(CATEGORIES[p.category]);
+    if (h2) h2.before(kick);
+    var by = document.createElement('div');
+    by.className = 'byline sm-ui';
+    by.innerHTML = '<span class="avatar" aria-hidden="true">' + AUTHOR.initials + '</span><div class="who"><strong>' + AUTHOR.name + '</strong><span>' + fmtDate(p.date) + ' · ' + p.mins + ' min ' + T({ es: 'de lectura', en: 'read' }) + '</span></div><span style="margin-left:auto">' + draftTag(p) + '</span>';
+    (dek || h2 || kick).after(by);
+
+    var i = posts.indexOf(p), newer = posts[i - 1], older = posts[i + 1];
+    var related = posts.filter(function (q) { return q !== p && q.topics.some(function (t) { return p.topics.indexOf(t) >= 0; }); }).slice(0, 3);
+    var url = location.href.split('#')[0] + '#' + p.id;
+    var plain = (p.title[lang()] || '').replace(/<[^>]+>/g, '');
+    var bio = { es: ($('#acerca .author-bio.es') || {}).innerHTML || '', en: ($('#acerca .author-bio.en') || {}).innerHTML || '' };
+    document.title = plain + ' · ' + (lang() === 'es' ? 'Deporte y Políticas Públicas' : 'Sport & Public Policy');
+    return '<div class="postfoot">' + T({ es: 'Publicado en', en: 'Posted in' }) + ' <a href="#/categoria/' + p.category + '">' + T(CATEGORIES[p.category]) + '</a>' +
+      '<div class="tags">' + p.topics.map(function (t) { return '<a class="tag" href="#/tema/' + t + '">' + T(TOPICS[t]) + '</a>'; }).join('') + '</div></div>' +
+      '<div class="share"><strong style="font-size:13px">' + T({ es: 'Compartir:', en: 'Share:' }) + '</strong>' +
+      '<a target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url) + '">LinkedIn</a>' +
+      '<a target="_blank" rel="noopener" href="https://x.com/intent/post?text=' + encodeURIComponent(plain) + '&url=' + encodeURIComponent(url) + '">X</a>' +
+      '<a href="mailto:?subject=' + encodeURIComponent(plain) + '&body=' + encodeURIComponent(url) + '">Email</a>' +
+      '<button type="button" data-copy="' + esc(url) + '">' + T({ es: 'Copiar enlace', en: 'Copy link' }) + '</button></div>' +
+      '<div class="authorbox"><span class="avatar" aria-hidden="true">' + AUTHOR.initials + '</span><div><strong>' + AUTHOR.name + '</strong>' + (bio.es ? '<p>' + T(bio) + '</p>' : '') +
+      '<p><a href="#/autor">' + T({ es: 'Ver todas sus entradas →', en: 'View all posts →' }) + '</a></p></div></div>' +
+      '<nav class="pn" aria-label="Entradas">' +
+      (older ? '<a class="prev" href="#' + older.id + '"><small>← ' + T({ es: 'Anterior', en: 'Previous' }) + '</small><span>' + T(older.title) + '</span></a>' : '<span></span>') +
+      (newer ? '<a class="next" href="#' + newer.id + '"><small>' + T({ es: 'Siguiente', en: 'Next' }) + ' →</small><span>' + T(newer.title) + '</span></a>' : '') + '</nav>' +
+      (related.length ? '<section class="related"><h2 class="section-title">' + T({ es: 'Relacionadas', en: 'Related' }) + '</h2><ul>' + related.map(function (r) { return '<li><a href="#' + r.id + '">' + T(r.title) + '</a></li>'; }).join('') + '</ul></section>' : '');
+  }
+
+  /* ---------- Rutas ---------- */
+  function show(ids) {
+    routeStyle.textContent = '#posts > section{display:none}' + ids.map(function (id) { return '#posts > section#' + CSS.escape(id) + '{display:block}'; }).join('');
+  }
+  function route() {
+    $$('.sm-ui', postsEl).forEach(function (n) { if (!n.closest('.sm-chrome') && (n.classList.contains('byline') || n.classList.contains('cat'))) n.remove(); });
+    var posts = readPosts();
+    renderSidebar(posts);
+    if (editing()) { routeStyle.textContent = ''; return; }
+    var hash = decodeURIComponent(location.hash.replace(/^#/, ''));
+    var nav = 'home', html = '';
+    document.title = lang() === 'es' ? 'Deporte y Políticas Públicas' : 'Sport & Public Policy';
+    var target = hash && hash.charAt(0) !== '/' && document.getElementById(hash);
+    if (target && target.parentElement === postsEl) {
+      show([hash]);
+      var p = posts.filter(function (x) { return x.id === hash; })[0];
+      if (p) { html = decoratePost(p, posts); nav = p.category; }
+      else nav = hash;
+    } else if (hash.charAt(0) === '/') {
+      var parts = hash.slice(1).split('/'), r = parts[0], arg = parts.slice(1).join('/');
+      show([]);
+      if (r === 'categoria' && CATEGORIES[arg]) { html = list(T(CATEGORIES[arg]), T(CATEGORIES[arg].d), posts.filter(function (p) { return p.category === arg; }), T({ es: 'Sección', en: 'Section' })); nav = arg; }
+      else if (r === 'tema' && TOPICS[arg]) { html = list(T(TOPICS[arg]), '', posts.filter(function (p) { return p.topics.indexOf(arg) >= 0; }), T({ es: 'Tema', en: 'Topic' })); nav = 'temas'; }
+      else if (r === 'temas') {
+        nav = 'temas';
+        html = '<div class="listhead"><h2>' + T({ es: 'Temas', en: 'Topics' }) + '</h2><p>' + T({ es: 'Explora las entradas por área de política pública.', en: 'Browse posts by policy area.' }) + '</p></div><ul class="catlist">' +
+          Object.keys(TOPICS).map(function (k) { return '<li><a href="#/tema/' + k + '"><span>' + T(TOPICS[k]) + '</span><span class="n">' + posts.filter(function (p) { return p.topics.indexOf(k) >= 0; }).length + '</span></a></li>'; }).join('') + '</ul>';
+      }
+      else if (r === 'autor') { html = list(AUTHOR.name, '', posts, T({ es: 'Autor', en: 'Author' })); nav = ''; }
+      else if (r === 'buscar') {
+        var q = norm(arg), res = q ? posts.filter(function (p) { return p.text.indexOf(q) >= 0; }) : [];
+        html = list(T({ es: 'Resultados para «' + esc(arg) + '»', en: 'Results for “' + esc(arg) + '”' }), T({ es: res.length + ' entrada(s)', en: res.length + ' post(s)' }), res, T({ es: 'Búsqueda', en: 'Search' }));
+        nav = '';
+      } else { show(['inicio']); html = home(posts); }
+    } else {
+      show(['inicio']);
+      html = home(posts);
+    }
+    view.innerHTML = html;
+    $$('#nav a').forEach(function (a) { a.classList.toggle('active', a.getAttribute('data-nav') === nav); });
+    if (hash.indexOf('/buscar/') === 0) $('#q').value = hash.slice(8);
+  }
+  function home(posts) {
+    if (!posts.length) return '';
+    return '<h2 class="section-title">' + T({ es: 'Última entrada', en: 'Latest' }) + '</h2>' + card(posts[0], true) +
+      (posts.length > 1 ? '<h2 class="section-title">' + T({ es: 'Más entradas', en: 'More posts' }) + '</h2>' + posts.slice(1).map(function (p) { return card(p); }).join('') : '');
+  }
+
+  /* ---------- Idioma y tema ---------- */
+  function setLang(l) {
+    root.setAttribute('data-lang', l); root.lang = l;
+    $$('[data-setlang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-setlang') === l)); });
+    store.set('spp-lang', l);
+  }
+  $$('[data-setlang]').forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-setlang')); route(); }); });
+  $('#themeBtn').addEventListener('click', function () {
+    var dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    store.set('spp-theme', root.dataset.theme);
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy]'); if (!b || !navigator.clipboard) return;
+    navigator.clipboard.writeText(b.getAttribute('data-copy')).then(function () { b.innerHTML = T({ es: '¡Copiado!', en: 'Copied!' }); });
+  });
+
+  /* ---------- Fotos: se muestran si el archivo existe ---------- */
+  $$('figure.photo[data-src]').forEach(function (fig) {
+    var img = $('img', fig); if (!img) return;
+    if (!fig.getAttribute('data-src')) { fig.classList.add('no-img'); return; }
+    img.addEventListener('load', function () { fig.classList.add('has-img'); fig.classList.remove('no-img'); });
+    img.addEventListener('error', function () { fig.classList.remove('has-img'); fig.classList.add('no-img'); });
+    img.src = fig.getAttribute('data-src');
+  });
+
+  var savedTheme = store.get('spp-theme'); if (savedTheme) root.dataset.theme = savedTheme;
+  setLang(store.get('spp-lang') || ((navigator.language || 'es').indexOf('es') === 0 ? 'es' : 'en'));
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#acceso') return;
+    route();
+    if (!editing()) window.scrollTo({ top: location.hash && location.hash !== '#' ? $('nav.main').offsetTop : 0 });
+  });
+  // Al entrar o salir del modo edición se vuelve a pintar la página.
+  var wasEditing = false;
+  new MutationObserver(function () { if (editing() !== wasEditing) { wasEditing = editing(); route(); } }).observe(root, { attributes: true, attributeFilter: ['class'] });
+  route();
+
+  /* ---------- Editor del sitio (solo se carga para el editor o en #acceso) ---------- */
+  function loadEditor() {
+    if (window.SM_EDITOR) { window.SM_EDITOR.openLogin(); return; }
+    if (document.getElementById('smEditorScript')) return;
+    var s = document.createElement('script'); s.id = 'smEditorScript'; s.src = 'admin/editor.js'; document.body.appendChild(s);
+  }
+  if (/(^|;\s*)sm_editor=1/.test(document.cookie) || location.hash === '#acceso') loadEditor();
+  window.addEventListener('hashchange', function () { if (location.hash === '#acceso') loadEditor(); });
+})();
 </script>
 </body>
 </html>
