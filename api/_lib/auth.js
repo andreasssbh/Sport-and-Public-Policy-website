@@ -10,13 +10,18 @@ const COOKIE = 'sm_session';
 const MARKER = 'sm_editor'; // cookie visible desde JS: solo indica "cargar el editor"
 const MAX_AGE = 60 * 60 * 12; // 12 h
 
+// La contraseña puede llamarse ADMIN_PASSWORD o, como se creó en Vercel, «Password».
+function adminPassword() {
+  return process.env.ADMIN_PASSWORD || process.env.Password || '';
+}
+
 function secret() {
-  const pw = process.env.ADMIN_PASSWORD || '';
+  const pw = adminPassword();
   return crypto.createHash('sha256').update('sm-session:' + pw + ':' + (process.env.SESSION_SECRET || '')).digest();
 }
 
 function configured() {
-  return Boolean(process.env.ADMIN_PASSWORD);
+  return Boolean(adminPassword());
 }
 
 function sign(value) {
@@ -33,7 +38,7 @@ function checkPassword(password) {
   if (!configured()) return false;
   // Comparar resúmenes para no filtrar la longitud de la contraseña.
   const h = (s) => crypto.createHash('sha256').update(String(s)).digest('hex');
-  return safeEqual(h(password), h(process.env.ADMIN_PASSWORD));
+  return safeEqual(h(password), h(adminPassword()));
 }
 
 function parseCookies(req) {

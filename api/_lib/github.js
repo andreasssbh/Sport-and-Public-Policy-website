@@ -7,7 +7,7 @@
 const API = 'https://api.github.com';
 
 function config() {
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.GITHUB_TOKEN || process.env.Token; // «Token»: nombre con el que se creó en Vercel
   const repo = process.env.GITHUB_REPO || 'andreasssbh/Sport-and-Public-Policy-website';
   const branch = process.env.GITHUB_BRANCH || 'main';
   if (!token) throw new Error('GITHUB_TOKEN no está configurado');

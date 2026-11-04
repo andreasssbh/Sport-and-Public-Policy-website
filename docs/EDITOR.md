@@ -62,6 +62,8 @@ En Vercel → proyecto `sport-and-public-policy-website` → **Settings → Envi
 | `GITHUB_REPO` | `andreasssbh/Sport-and-Public-Policy-website` (valor por defecto). |
 | `GITHUB_BRANCH` | `main` (valor por defecto). |
 
+En este proyecto las variables se crearon como `Password` y `Token` (Vercel no deja renombrar las de tipo *Secret*); el código acepta los dos nombres.
+
 Después, **Deployments → Redeploy** para que las funciones lean las variables. El proyecto de Vercel debe estar
 conectado al repositorio (Settings → Git) para que cada «Guardar» se publique solo.
 
