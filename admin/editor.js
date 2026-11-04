@@ -959,7 +959,8 @@
       photo: '<figure class="photo photo-inline" data-src=""><img alt=""><figcaption>' + both('Pie de foto', 'Caption') + '</figcaption></figure>',
       card: '<article class="card"><h3>' + both('Título del bloque', 'Block title') + '</h3><p class="es">Escribe aquí el texto del bloque.</p><p class="en">Write the block text here.</p></article>',
       section: '<section class="post-sec"><div class="container">' +
-        '<p class="ficha">Análisis | ' + new Date().toISOString().slice(0, 10) + ' | Gobernanza | Borrador</p>' +
+        '<p class="ficha">' + ((state.newPost && state.newPost.cat) || 'Análisis') + ' | ' + new Date().toISOString().slice(0, 10) + ' | ' +
+        ((state.newPost && state.newPost.topics) || 'Gobernanza') + ' | Borrador</p>' +
         '<h2 class="post-title">' + both('Título de la entrada', 'Post title') + '</h2>' +
         '<p class="dek">' + both('Una frase que resuma la entrada.', 'One sentence that sums up the post.') + '</p>' +
         '<h3 class="keys-title">' + both('En cuatro claves', 'In four keys') + '</h3><ul class="keys">' +
@@ -1730,7 +1731,15 @@
 
   /* ---------------- arranque ---------------- */
   injectCSS();
-  window.SM_EDITOR = { openLogin: openLogin };
+  // La página pide una entrada nueva desde una lista (sección o tema): se añade al
+  // final y su ficha empieza con esa sección / ese tema.
+  function addPost(opts) {
+    if (!state.editing) return;
+    select(null);
+    state.newPost = opts || null;
+    try { addContent('section', { append: mainRegion() }); } finally { state.newPost = null; }
+  }
+  window.SM_EDITOR = { openLogin: openLogin, addPost: addPost };
   var wantsLogin = location.hash === '#acceso';
   checkSession().then(function () {
     clearHash();

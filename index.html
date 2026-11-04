@@ -198,6 +198,8 @@ footer nav a:hover{color:var(--red)}
 /* Modo edición: se navega igual que en la web; la página abierta se edita en su sitio, con su ficha */
 html.sm-editing #posts > section{border:1px dashed var(--line);border-radius:var(--radius);padding:18px 20px;margin:0 0 8px}
 html.sm-editing #view{margin-top:32px}
+.new-post-btn{display:block;width:100%;margin:0 0 28px;padding:12px;border:2px dashed rgba(37,99,235,.55);background:rgba(37,99,235,.06);color:#2563eb;border-radius:10px;font:700 15px var(--sans);cursor:pointer}
+.new-post-btn:hover{background:rgba(37,99,235,.14)}
 html.sm-editing .ficha{display:block;font:13px/1.5 var(--sans);background:#fef3c7;color:#111;border-radius:8px;padding:8px 10px}
 html.sm-editing[data-lang="es"] .ficha::before{content:"Ficha de la entrada — sección | fecha (AAAA-MM-DD) | temas separados por comas | Borrador (opcional):";display:block;font-weight:700;margin-bottom:2px}
 html.sm-editing[data-lang="en"] .ficha::before{content:"Post details — section | date (YYYY-MM-DD) | topics separated by commas | Draft (optional):";display:block;font-weight:700;margin-bottom:2px}
@@ -605,8 +607,13 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
     return '<div class="' + (big ? 'featured' : 'card') + '"><a class="cat" href="#/categoria/' + p.category + '">' + T(CATEGORIES[p.category]) + '</a>' + head +
       '<p class="excerpt">' + T(p.dek) + '</p>' + meta(p) + '<p style="margin:12px 0 0"><a class="more" href="#' + p.id + '">' + T({ es: 'Seguir leyendo →', en: 'Continue reading →' }) + '</a></p></div>';
   }
-  function list(title, desc, items, kicker) {
-    return '<div class="listhead">' + (kicker ? '<span class="cat">' + kicker + '</span>' : '') + '<h2>' + title + '</h2>' + (desc ? '<p>' + desc + '</p>' : '') + '</div>' +
+  // Botón «＋ Nueva entrada» en las listas, solo en modo edición.
+  function newPostBtn(label, opts) {
+    if (!editing()) return '';
+    return '<button type="button" class="new-post-btn" data-newpost="' + esc(JSON.stringify(opts)) + '">＋ ' + T(label) + '</button>';
+  }
+  function list(title, desc, items, kicker, btn) {
+    return '<div class="listhead">' + (kicker ? '<span class="cat">' + kicker + '</span>' : '') + '<h2>' + title + '</h2>' + (desc ? '<p>' + desc + '</p>' : '') + '</div>' + (btn || '') +
       (items.length ? items.map(function (p) { return card(p); }).join('') : '<p class="empty">' + T({ es: 'No hay entradas que coincidan.', en: 'No matching posts.' }) + '</p>');
   }
 
@@ -689,8 +696,18 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
     } else if (hash.charAt(0) === '/') {
       var parts = hash.slice(1).split('/'), r = parts[0], arg = parts.slice(1).join('/');
       show([]);
-      if (r === 'categoria' && CATEGORIES[arg]) { html = list(T(CATEGORIES[arg]), T(CATEGORIES[arg].d), posts.filter(function (p) { return p.category === arg; }), T({ es: 'Sección', en: 'Section' })); nav = arg; }
-      else if (r === 'tema' && TOPICS[arg]) { html = list(T(TOPICS[arg]), '', posts.filter(function (p) { return p.topics.indexOf(arg) >= 0; }), T({ es: 'Tema', en: 'Topic' })); nav = 'temas'; }
+      if (r === 'categoria' && CATEGORIES[arg]) {
+        var c = CATEGORIES[arg];
+        html = list(T(c), T(c.d), posts.filter(function (p) { return p.category === arg; }), T({ es: 'Sección', en: 'Section' }),
+          newPostBtn({ es: 'Nueva entrada en ' + c.es, en: 'New post in ' + c.en }, { cat: c.es }));
+        nav = arg;
+      }
+      else if (r === 'tema' && TOPICS[arg]) {
+        var tp = TOPICS[arg];
+        html = list(T(tp), '', posts.filter(function (p) { return p.topics.indexOf(arg) >= 0; }), T({ es: 'Tema', en: 'Topic' }),
+          newPostBtn({ es: 'Nueva entrada sobre ' + tp.es, en: 'New post about ' + tp.en }, { topics: tp.es }));
+        nav = 'temas';
+      }
       else if (r === 'temas') {
         nav = 'temas';
         html = '<div class="listhead"><h2>' + T({ es: 'Temas', en: 'Topics' }) + '</h2><p>' + T({ es: 'Explora las entradas por área de política pública.', en: 'Browse posts by policy area.' }) + '</p></div><ul class="catlist">' +
@@ -729,6 +746,12 @@ html.sm-editing .intro-sec .container{margin-bottom:0}
     store.set('spp-theme', root.dataset.theme);
   });
   document.addEventListener('click', function (e) {
+    var np = e.target.closest('[data-newpost]');
+    if (np && window.SM_EDITOR && window.SM_EDITOR.addPost) {
+      var o = {}; try { o = JSON.parse(np.getAttribute('data-newpost')); } catch (err) {}
+      window.SM_EDITOR.addPost(o);
+      return;
+    }
     var b = e.target.closest('[data-copy]'); if (!b || !navigator.clipboard) return;
     navigator.clipboard.writeText(b.getAttribute('data-copy')).then(function () { b.innerHTML = T({ es: '¡Copiado!', en: 'Copied!' }); });
   });
